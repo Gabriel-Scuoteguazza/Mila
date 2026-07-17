@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif
+}
+
+body {
+    background-color: #140126;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+    align-items: center;
+
+    nav {
+        display: flex;
+
+        ul {
+            display: flex;
+            list-style: none;
+            gap: 4rem;
+
+            li {
+
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: 1.2rem;
+                }
+
+            }
+        }
+    }
+}
+
+main {
+    padding: 1rem 4rem;
+
+    section {
+        width: 100%;
+    }
+
+    padding-bottom: 5rem;
+
+}
+
+.comeco {
+    padding-bottom: 5rem;
+}
+
+.imagem-container {
+    position: relative;
+    width: 100%;
+}
+
+.imagem-mila {
+    width: 100%;
+    display: block;
+}
+
+
+.icones {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.icones-esquerda {
+    display: flex;
+    gap: 15px;
+}
+
+
+.icones img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.titulo {
+    padding-bottom: 5rem;
+
+    h2 {
+        font-size: 2.5rem;
+        padding-bottom: 5rem;
+    }
+
+    p {
+        font-size: 1.5rem;
+        line-height: 1.7;
+    }
+}
+
+.funcionamento {
+    width: 100%;
+    padding: 5rem 1rem;
+}
+
+
+.linha {
+    width: 100%;
+    height: 3px;
+    background-color: #2DA8FF;
+    margin-bottom: 4rem;
+}
+
+.passo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 5rem;
+}
+
+.numero {
+    flex: 0 0 120px;
+}
+
+.numero h1 {
+    font-size: 5rem;
+    font-weight: 300;
+    color: #D8D8D8;
+}
+
+.texto {
+    flex: 1;
+}
+
+.texto h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.texto p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.texto strong {
+    font-weight: 700;
+}
+
+.imagem {
+    flex: 0 0 220px;
+    display: flex;
+    justify-content: center;
+}
+
+.imagem img {
+    max-width: 180px;
+    width: 100%;
+}
