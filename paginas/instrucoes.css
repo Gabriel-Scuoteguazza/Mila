@@ -1,94 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Nunito Sans", sans-serif
-}
-
-body {
-    background-color: #140126;
-    color: #fff;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 5rem;
-    align-items: center;
-
-    nav {
-        display: flex;
-
-        ul {
-            display: flex;
-            list-style: none;
-            gap: 4rem;
-
-            li {
-
-                a {
-                    text-decoration: none;
-                    color: #fff;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                    font-size: 1.2rem;
-                }
-
-            }
-        }
-    }
-}
-
-main {
-    padding: 1rem 4rem;
-
-    section {
-        width: 100%;
-    }
-
-    padding-bottom: 5rem;
-
-}
-
-.comeco {
-    padding-bottom: 5rem;
-}
-
-.imagem-container {
-    position: relative;
-    width: 100%;
-}
-
-.imagem-mila {
-    width: 100%;
-    display: block;
-}
-
-
-.icones {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.icones-esquerda {
-    display: flex;
-    gap: 15px;
-}
-
-
-.icones img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
+@import url(../css/global.css);
 
 .titulo {
     padding-bottom: 5rem;
@@ -101,6 +11,7 @@ main {
     p {
         font-size: 1.5rem;
         line-height: 1.7;
+        color: #AAE6B2;
     }
 }
 
@@ -109,59 +20,28 @@ main {
     padding: 5rem 1rem;
 }
 
-
-.linha {
-    width: 100%;
-    height: 3px;
-    background-color: #2DA8FF;
-    margin-bottom: 4rem;
-}
-
-.passo {
+.subtitulo {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3rem;
-    margin-bottom: 5rem;
-}
+    justify-content: left;
+    padding-bottom: 2rem;
+    gap: 10rem;
 
-.numero {
-    flex: 0 0 120px;
-}
+    h1 {
+        font-size: 4rem;
+        font-weight: 300;
+        color: #fff;
+    }
 
-.numero h1 {
-    font-size: 5rem;
-    font-weight: 300;
-    color: #D8D8D8;
-}
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 100;
+        color: #AAE6B2;
+        text-align: center;
+    }
 
-.texto {
-    flex: 1;
-}
+    img {
+        height: 100%;
+        left: 0;
+    }
 
-.texto h3 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 500;
-}
-
-.texto p {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 1rem;
-}
-
-.texto strong {
-    font-weight: 700;
-}
-
-.imagem {
-    flex: 0 0 220px;
-    display: flex;
-    justify-content: center;
-}
-
-.imagem img {
-    max-width: 180px;
-    width: 100%;
 }
