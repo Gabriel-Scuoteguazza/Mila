@@ -12,6 +12,7 @@
         font-size: 1.5rem;
         line-height: 1.7;
         color: #AAE6B2;
+
     }
 }
 
@@ -22,26 +23,26 @@
 
 .subtitulo {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     padding-bottom: 2rem;
-    gap: 10rem;
 
-    h1 {
-        font-size: 4rem;
-        font-weight: 300;
-        color: #fff;
+}
+
+.conteudo {
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    div {
+        p {
+                    max-width: 900px; /* Limita a largura máxima do texto */
+
+        }
     }
 
-    h2 {
-        font-size: 2.5rem;
-        font-weight: 100;
-        color: #AAE6B2;
-        text-align: center;
+    .imagem {
+        display: flex;
+        justify-content:   right;
+        align-items: right;
     }
-
-    img {
-        height: 100%;
-        left: 0;
-    }
-
 }

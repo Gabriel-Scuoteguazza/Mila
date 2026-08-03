@@ -24,10 +24,10 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="./paginas/instrucoes.html">Instruções</a></li>
-                <li><a href="">Componentes</a></li>
-                <li><a href="">Quem Somos</a></li>
-                <li><a href="">Referências</a></li>
-                <li><a href="">Nosso Jogo</a></li>
+                <li><a href="./paginas/componentes.html">Componentes</a></li>
+                <li><a href="./paginas/quem-somos.html">Quem Somos</a></li>
+                <li><a href="./paginas/referencias.html">Referências</a></li>
+                <li><a href="./paginas/nosso-jogo.html">Nosso Jogo</a></li>
             </ul>
         </nav>
     </header>
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="icone">
-                            <img src="assets/notificacoes.svg" alt="Imagem de notificações">
+                            <img src="assets/notificacoes.svg" alt="Imagem de notificão">
                         </div>
                     </div>
 
@@ -65,13 +65,21 @@
             <div>
                 <h1>Um Olhar Detalhado</h1>
 
-                <div class="cards">
-                    <h3>Alinhamento em tempo real</h3>
-                    <img src="assets/carrosel1.png" alt="Imagem do Card 1">
-
-                    <h3 class="esquerda">Luz na medida certa</h3>
-                    <img src="assets/carrosel2.png" alt="Imagem do Card 2">
+                <div class="cards carousel" aria-label="Destaques da MILA">
+                    <article class="carousel-card">
+                        <img src="assets/carrosel1.png" alt="MILA auxiliando no alinhamento em tempo real">
+                        <h3>Alinhamento em tempo real</h3>
+                    </article>
+                    <article class="carousel-card">
+                        <img src="assets/carrosel1.png" alt="MILA auxiliando no alinhamento em tempo real">
+                        <h3>Luz na medida certa</h3>
+                    </article>
+                    <article class="carousel-card">
+                        <img src="assets/carrosel1.png" alt="MILA auxiliando no alinhamento em tempo real">
+                        <h3>Luz na medida certa</h3>
+                    </article>
                 </div>
+                <p class="carousel-hint">Arraste para explorar</p>
 
             </div>
 
@@ -80,7 +88,7 @@
         <section class="desenvolvimento2">
             <div>
                 <h1>Inteligência que cuida de você</h1>
-                <p>Apresentamos a MILA — Módulo de Inteligência, Logística e Aprendizado. Uma mesa inteligente projetada
+                <p>Apresentamos a MILA ― Módulo de Inteligência, Logística e Aprendizado. Uma mesa inteligente projetada
                     para transformar seu ambiente de estudos em um ecossistema de alta performance. Através da
                     integração harmônica entre sensores de precisão e hardware dedicado, a MILA monitora sua postura,
                     otimiza a ergonomia e ajusta o ambiente para que seu foco seja absoluto e sua saúde, prioridade.</p>
@@ -94,7 +102,7 @@
                 <div class="card card1">
                     <h4>Além das telas</h4>
                     <p>Diferente das IAs comuns que vivem apenas no seu navegador, a MILA sente o mundo real. Ela não
-                        apenas processa dados; ela entende o seu espaço físico e interage com o seu ambiente para
+                        apenas processa dados; ela entende o seu espaçon físico e interage com o seu ambiente para
                         otimizar seu rendimento.</p>
                 </div>
 
@@ -122,6 +130,7 @@
             </div>
         </section>
     </main>
+    <script src="index.js" defer></script>
 </body>
 
 </html>

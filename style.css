@@ -1,99 +1,104 @@
 @import url(./css/global.css);
 
 .desenvolvimento1 {
-    div {
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin-left: 15px;
-        }
-
-        .cards {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-
-            h3 {
-                font-size: 1rem;
-                font-weight: 700;
-                margin-bottom: 1rem;
-                object-fit: contain;
-                position: absolute;
-                margin-left: 20px;
-                margin-top: 20px;
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-
-            .esquerda {
-                position: absolute;
-                right: 33rem;
-            }
-        }
-    }
-
     padding-bottom: 5rem;
-
 }
 
+.desenvolvimento1 h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.carousel {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    overflow-x: auto;
+    padding: 0 0 1rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    cursor: grab;
+    user-select: none;
+}
+
+.carousel::-webkit-scrollbar { display: none; }
+.carousel.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+
+.carousel-card {
+    position: relative;
+    flex: 0 0 calc(50% - 1rem);
+    scroll-snap-align: start;
+}
+
+.carousel-card h3 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.carousel-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.carousel-hint { display: none; }
 
 .desenvolvimento2 {
-    div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        p {
-            font-size: 1.2rem;
-            text-align: center;
-            max-width: 900px;
-        }
-
-        button {
-            background: none;
-            color: #6DEE7E;
-            border: 2px solid #6DEE7E;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-    }
-
     padding-bottom: 5rem;
-
 }
 
+.desenvolvimento2 > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.desenvolvimento2 h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.desenvolvimento2 p {
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 900px;
+}
+
+.desenvolvimento2 button {
+    background: none;
+    color: #6DEE7E;
+    border: 2px solid #6DEE7E;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+}
 
 .conclusao .cards {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-
-    h4 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #000;
-        text-align: center;
-    }
-
-    p {
-        text-align: center;
-    }
 }
+
+.conclusao .cards h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #000;
+    text-align: center;
+}
+
+.conclusao .cards p { text-align: center; }
 
 .card {
     width: 420px;
@@ -104,12 +109,9 @@
     position: static;
 }
 
-.card1,
-.card3 {
-    align-self: flex-start;
-}
+.card1, .card3 { align-self: flex-start; }
+.card2, .card4 { align-self: flex-end; }
 
-.card2,
-.card4 {
-    align-self: flex-end;
+@media (max-width: 760px) {
+    .carousel-card { flex-basis: 88vw; }
 }
