@@ -1,0 +1,241 @@
+@import url(../css/global.css);
+
+/* Estilos específicos da página de Referências */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Hero Section */
+.hero-referencias {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.hero-banner {
+    width: 100%;
+    height: 420px;
+    background: linear-gradient(rgba(18, 5, 38, 0.4), rgba(18, 5, 38, 0.7)), url('../assets/carrosel1.png') center/cover no-repeat;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-text-overlay h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    color: #ffffff;
+}
+
+.hero-text-overlay .mila-title {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.hero-text-overlay .highlight {
+    color: #00ff88;
+}
+
+.intro-description {
+    text-align: center;
+    max-width: 900px;
+    margin-top: 35px;
+}
+
+.intro-description p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.click-instruction {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #00ff88;
+    animation: pulse 2s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Cards Section */
+.cards-section {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.ref-card {
+    background: #e2dbff;
+    color: #2b0c4e;
+    width: 320px;
+    height: 140px;
+    border-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ref-card h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.ref-card:hover {
+    transform: translateY(-8px);
+    background-color: #f0ecff;
+    box-shadow: 0 12px 25px rgba(0, 255, 136, 0.2);
+}
+
+/* Estilização dos Modais com Animações */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal.hide {
+    display: flex;
+    opacity: 0;
+}
+
+.modal-content {
+    background-color: #E1D6FF;
+    color: #1B0140;
+    padding: 40px;
+    border-radius: 35px;
+    width: 90%;
+    max-width: 65rem;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h2 {
+    color: #1B0140;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 800;
+}
+
+/* Espaçamento e divisórias idênticas aos prints */
+.ref-item {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(27, 1, 64, 0.12);
+}
+
+.ref-item:last-child {
+    border-bottom: none;
+}
+
+.modal-content p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #1B0140;
+    margin-bottom: 6px;
+}
+
+/* Destaque rosa igual aos prints dos modais */
+.highlight-text {
+    color: #BF05F2;
+    font-weight: 700;
+}
+
+.modal-content a {
+    display: inline-block;
+    color: #BF05F2;
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+}
+
+.modal-content a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.close-button {
+    position: absolute;
+    top: 25px;
+    left: 3rem;
+    font-size: 2rem;
+    color: #1B0140;
+    cursor: pointer;
+    font-weight: 300;
+    transition: transform 0.2s;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero-text-overlay h1 {
+        font-size: 2.2rem;
+    }
+    .cards-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    .ref-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}

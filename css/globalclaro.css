@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif
+}
+
+body {
+  background: linear-gradient(180deg, #ECE5FF 0%, #d3c4f5 48%, #ECE5FF 100%);
+  color: #320068;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 5rem;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background-color .25s ease, backdrop-filter .25s ease;
+
+  &.is-scrolled {
+      background-color: rgba(236, 229, 255, 0.85);
+      backdrop-filter: blur(8px);
+  }
+
+  nav {
+      display: flex;
+
+      ul {
+          display: flex;
+          list-style: none;
+          gap: 4rem;
+
+          li {
+
+              a {
+                  text-decoration: none;
+                  color: #320068;
+                  text-transform: uppercase;
+                  font-weight: 700;
+                  font-size: 1.2rem;
+                  transition: color 0.2s ease;
+
+                  &:hover {
+                      color: #4B1882;
+                  }
+              }
+
+          }
+      }
+  }
+}
+
+main {
+  padding: 1rem 4rem;
+
+  section {
+      width: 100%;
+  }
+
+  padding-bottom: 5rem;
+
+}
+
+.comeco {
+  padding-bottom: 5rem;
+}
+
+.imagem-container {
+  position: relative;
+  width: 100%;
+}
+
+.imagem-mila {
+  width: 100%;
+  display: block;
+}
+
+.icones {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icones-esquerda {
+  display: flex;
+  gap: 15px;
+}
+
+.icones img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
