@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="nosso-jogo.css">
     <title>Nosso Jogo | MILA</title>
 </head>
 <body>
@@ -18,11 +19,41 @@
                 <li><a href="componentes.html">Componentes</a></li>
                 <li><a href="quem-somos.html">Quem Somos</a></li>
                 <li><a href="referencias.html">Referências</a></li>
-                <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
+                <li><a href="nosso-jogo.html" class="active">Nosso Jogo</a></li>
             </ul>
         </nav>
     </header>
-    <main class="main-content"></main>
+
+    <main class="main-content">
+        <!-- Hero Section do Jogo -->
+        <section class="jogo-hero">
+            <h1>Divergência Docente</h1>
+            <p>O ano letivo chegou ao seu ponto crítico. Diante de visões opostas sobre o futuro dos estudantes, o corpo docente dividiu-se em duas facções: a Grade Regular e o Ensino Técnico. Agora, a sala dos professores transformou-se em uma arena onde cada disciplina utiliza seus conceitos fundamentais como argumentos e habilidades de combate. Escolha o seu lado, domine as metodologias e decida qual modelo pedagógico triunfará no boletim.</p>
+        </section>
+
+        <!-- Container do Vídeo do Jogo -->
+        <section class="jogo-video-section">
+            <div class="video-card-container">
+                <video autoplay muted loop playsinline class="jogo-video">
+                    <source src="../assets/mais_curto_so_ameaçando_brig_1.mp4" type="video/mp4">
+                    Seu navegador não suporta este vídeo.
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Descrição sobre a MILA e o Jogo -->
+        <section class="jogo-desc-section">
+            <p>O jogo nasceu e foi estruturado a partir da MILA, nossa mesa de estudos. Assim como a mesa serve como o ponto de convergência onde diferentes matérias se encontram para construir o conhecimento, o jogo utiliza esse mesmo espaço físico e conceitual como a arena principal. O objetivo é transformar o ambiente de aprendizado e debate em uma experiência interativa, lúdica e altamente competitiva.</p>
+        </section>
+
+        <!-- Call to Action GDevelop -->
+        <section class="jogo-cta-section">
+            <p class="cta-text">Experimente o jogo diretamente no seu navegador através do <strong>GDevelop</strong>.</p>
+            <a href="https://gdevelop.io" target="_blank" class="gdevelop-btn">Acessar GDevelop</a>
+        </section>
+    </main>
+
     <script src="../index.js" defer></script>
 </body>
 </html>

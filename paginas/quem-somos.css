@@ -1,72 +1,14 @@
 @import url(../css/global.css);
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 :root {
-  --bg-dark: #07020d; /* Um preto ainda mais profundo e elegante */
-  --glass-bg: rgba(74, 0, 114, 0.15); /* Roxo super transparente (Efeito vidro) */
+  --glass-bg: rgba(74, 0, 114, 0.15);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --text-white: #ffffff;
   --neon-green: #90ee90;
   --neon-pink: #d946ef;
 }
 
-body {
-  background-color: var(--bg-dark);
-  color: var(--text-white);
-  overflow-x: hidden; /* Mantém oculto, mas... */
-  width: 100vw;       /* Garante que o body tenha exatamente a largura da tela */
-  position: relative;
-}
-
-/* =========================================
- LUZES DE FUNDO (AURA)
- ========================================= */
-.luz-fundo {
-  position: fixed; /* Mudei para fixed para ficar presa na tela e não mover */
-  border-radius: 50%;
-  filter: blur(150px);
-  z-index: -1;
-  opacity: 0.4;
-  animation: pulsar 8s infinite alternate ease-in-out;
-}
-
-.luz-fundo.roxa {
-  width: 600px;
-  height: 600px;
-  background: #4a0072;
-  top: -100px;
-  left: -200px;
-}
-
-.luz-fundo.rosa {
-  width: 500px;
-  height: 500px;
-  background: var(--neon-pink);
-  bottom: 20%;
-  right: -150px;
-  opacity: 0.2;
-}
-
-@keyframes pulsar {
-  0% { transform: scale(1); opacity: 0.3; }
-  100% { transform: scale(1.2); opacity: 0.5; }
-}
-
-/* =========================================
- MENU (VIDRO FOSCO)
- ========================================= */
-
-/* =========================================
- HERO E SOBRE (CLEAN E CENTRALIZADO)
- ========================================= */
 .hero-clean {
-  padding: 200px 20px 80px;
+  padding: 120px 20px 60px;
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
@@ -77,9 +19,12 @@ body {
   font-size: 1rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: -0.5rem;
   width: 10rem;
-  margin-top: -20rem;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 10px 20px rgba(50, 0, 104, 0.4));
+  display: inline-block;
+  margin-top: -4rem;
+  margin-bottom: -1rem;
 }
 
 .hero-clean h1 {
@@ -87,12 +32,14 @@ body {
   line-height: 1.2;
   margin-bottom: 25px;
   font-weight: 800;
+  color: #fff;
 }
 
 .text-glow {
   color: transparent;
-  -webkit-text-stroke: 1px var(--text-white);
-  text-shadow: 0 0 20px rgb(0, 255, 42, 0.4);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-text-stroke: 0.05rem #fff;
+  text-shadow: 0 0 20px rgba(0, 255, 42, 0.6);
 }
 
 .hero-clean p {
@@ -103,18 +50,20 @@ body {
   margin: 0 auto;
 }
 
+/* About Section */
 .about-clean {
   text-align: center;
-  padding: 50px 20px 100px;
+  padding: 40px 20px 80px;
   max-width: 1000px;
   margin: 0 auto;
 }
 
 .about-clean h2 {
   font-size: 2rem;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   line-height: 1.4;
   font-weight: 500;
+  color: #fff;
 }
 
 .about-clean h2 span {
@@ -129,46 +78,27 @@ body {
   text-align: left;
   color: #aaa;
   line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.jose{
+.jose {
   display: flex;
   text-align: center;
   color: #aaa;
 }
 
-/* =========================================
- CARDS DA EQUIPE (GLASSMORPHISM INTERATIVO)
- ========================================= */
+/* Team Grid Section */
 .team-grid-section {
   padding: 0 50px 120px;
 }
 
-/* =========================================
- GRID DA EQUIPE (CORRIGIDO PARA NÃO SOBRAR NINGUÉM)
- ========================================= */
 .team-grid {
   display: grid;
-  /* Força exatamente 4 colunas em telas grandes (Todo mundo na mesma linha) */
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-/* Responsividade para Laptops/Tablets (Força 2 em cima e 2 embaixo) */
-@media (max-width: 1100px) {
-  .team-grid {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 800px; /* Ajusta a largura para os cards não ficarem gigantes */
-  }
-}
-
-/* Responsividade para Celulares (1 card por linha) */
-@media (max-width: 600px) {
-  .team-grid {
-      grid-template-columns: 1fr;
-  }
 }
 
 .glass-card {
@@ -180,14 +110,13 @@ body {
   overflow: hidden;
   padding: 20px;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação super suave */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
 }
 
-/* Efeito ao passar o mouse no Card Inteiro */
 .glass-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(144, 238, 144, 0.5); /* Borda fica verde/brilhante */
+  border-color: rgba(144, 238, 144, 0.5);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(144, 238, 144, 0.1);
 }
 
@@ -200,20 +129,18 @@ body {
   position: relative;
 }
 
-/* A foto da pessoa */
 .card-img-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   transition: transform 0.5s ease;
-  filter: grayscale(20%); /* Tira um pouco da cor para ficar chique */
+  filter: grayscale(20%);
 }
 
-/* Overlay das redes sociais (Escondido por padrão) */
 .social-overlay {
   position: absolute;
-  bottom: -100%; /* Escondido pra baixo */
+  bottom: -100%;
   left: 0;
   width: 100%;
   height: 100%;
@@ -233,37 +160,30 @@ body {
   font-weight: 500;
 }
 
-/* O que acontece com a FOTO quando passa o mouse no card */
 .glass-card:hover .card-img-container img {
-  transform: scale(1.08); /* Zoom sutil na foto */
-  filter: grayscale(0%); /* Volta a cor original */
+  transform: scale(1.08);
+  filter: grayscale(0%);
 }
 
-/* Faz as redes sociais subirem ao passar o mouse */
 .glass-card:hover .social-overlay {
   bottom: 0;
 }
 
-/* Textos do Card */
 .card-content h3 {
   font-size: 1.4rem;
   margin-bottom: 10px;
 }
 
-.name-pink { color: var(--neon-pink); }
-.name-green { color: var(--neon-green); }
+.name-pink {
+  color: var(--neon-pink);
+}
+
+.name-green {
+  color: var(--neon-green);
+}
 
 .card-content p {
   font-size: 0.9rem;
   color: #ccc;
   line-height: 1.5;
 }
-
-/* Responsividade Básica (Celular) */
-@media (max-width: 768px) {
-  .hero-clean h1 { font-size: 2.5rem; }
-  .about-text-grid { flex-direction: column; gap: 20px; }
-  .navbar { padding: 15px 20px; }
-  .navbar nav { display: none; /* Esconde menu no celular para ficar clean */ }
-}
-

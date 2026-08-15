@@ -1,0 +1,127 @@
+@import url(../css/global.css);
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Hero Section */
+.jogo-hero {
+    text-align: center;
+    max-width: 900px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.jogo-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.jogo-hero p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #dcd6f7;
+}
+
+/* Seção do Vídeo */
+.jogo-video-section {
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 50px;
+}
+
+.video-card-container {
+    width: 100%;
+    height: 450px;
+    background: rgba(74, 0, 114, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jogo-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Descrição Intermediária */
+.jogo-desc-section {
+    text-align: center;
+    max-width: 850px;
+    margin-bottom: 50px;
+}
+
+.jogo-desc-section p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #dcd6f7;
+}
+
+/* Seção Botão GDevelop */
+.jogo-cta-section {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.cta-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #00ff88;
+    margin-bottom: 25px;
+}
+
+.gdevelop-btn {
+    display: inline-block;
+    background: #E1D6FF;
+    color: #1B0140;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 15px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.gdevelop-btn:hover {
+    transform: translateY(-4px);
+    background-color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.25);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .jogo-hero h1 {
+        font-size: 2.2rem;
+    }
+    .video-card-container {
+        height: 280px;
+        border-radius: 20px;
+    }
+}

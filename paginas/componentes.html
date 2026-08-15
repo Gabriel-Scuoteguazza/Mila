@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="componentes.css">
     <title>Componentes | MILA</title>
 </head>
 <body>
@@ -15,14 +16,160 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="instrucoes.html">Instruções</a></li>
-                <li><a href="componentes.html">Componentes</a></li>
+                <li><a href="componentes.html" class="active">Componentes</a></li>
                 <li><a href="quem-somos.html">Quem Somos</a></li>
                 <li><a href="referencias.html">Referências</a></li>
                 <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
             </ul>
         </nav>
     </header>
-    <main class="main-content"></main>
+
+    <main class="main-content">
+        <section class="comp-hero">
+            <span class="subtitle-top">Inteligência em cada detalhe.</span>
+            <h1>Performance que você sente. <span>Literalmente.</span></h1>
+            
+            <div class="chat-container">
+                <div class="chat-bubble left">
+                    <p>A MILA não é apenas uma mesa. O topo dela é equipado com uma tela tátil e um visor de LED que exibe temperatura, hora e mensagens importantes da IA, transformando o espaço em um ambiente inteligente.</p>
+                </div>
+                <div class="chat-bubble right">
+                    <p>Qual é o resultado?</p>
+                </div>
+                <div class="chat-bubble left">
+                    <p>O foco absoluto e o ganho de produtividade sustentável!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tutor-section">
+            <div class="tutor-content">
+                <div class="tutor-image-box">
+                    <img src="../assets/mesalateral.png" alt="Detalhe da Mesa MILA">
+                </div>
+                <div class="tutor-text">
+                    <h2>Um tutor pessoal. <span>Movido por IA.</span></h2>
+                    <p class="tutor-desc">A MILA possui recursos avançados de uma interface interativa integrada:</p>
+                    <ul class="tutor-features">
+                        <li><strong>Respostas imediatas:</strong> Tire dúvidas, crie lembretes ou revise enquanto estuda diretamente com o tutor virtual.</li>
+                        <li><strong>Gestão de progresso:</strong> O sistema monitora sua evolução e o seu ritmo dia após dia, garantindo foco contínuo.</li>
+                        <li><strong>Biofeedback:</strong> Acessa recomendações de pausas com base no tempo que você passa focado e na postura observada.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="hardware-section">
+            <div class="hardware-header">
+                <h2>Hardware de Precisão. <span>Design com Propósito.</span></h2>
+                <p>Cada componente da MILA foi selecionado para otimizar a sua jornada de aprendizado e definição.</p>
+            </div>
+
+            <div class="hardware-grid">
+                <div class="hardware-item">
+                    <img src="../assets/mesa-branca.png" alt="Estrutura da Mesa">
+                    <button class="info-btn" data-modal="modal-mesa">Ver Informação</button>
+                </div>
+
+                <div class="hardware-item">
+                    <img src="../assets/camerafull.avif" alt="Câmera Full HD">
+                    <button class="info-btn" data-modal="modal-braco">Ver Informação</button>
+                </div>
+
+                <div class="hardware-item">
+                    <img src="../assets/tela.png" alt="Tela LCD Principal">
+                    <button class="info-btn" data-modal="modal-caixa">Ver Informação</button>
+                </div>
+
+                <div class="hardware-item">
+                    <img src="../assets/giroscopio.png" alt="Giroscópio">
+                    <button class="info-btn" data-modal="modal-sensores">Ver Informação</button>
+                </div>
+
+                <div class="hardware-item">
+                    <img src="../assets/ldr.png" alt="Sensor LDR">
+                    <button class="info-btn" data-modal="modal-fonte">Ver Informação</button>
+                </div>
+                <div class="hardware-item">
+                    <img src="../assets/fita-led.png" alt="Sistema de Fita LED Automatizadao">
+                    <button class="info-btn" data-modal="modal-fita">Ver Informação</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="science-section">
+            <h2>A ciência que fundamenta o <span>foco.</span></h2>
+            <p class="science-subtitle">A MILA se consulta sobre planos científicos sólidos, monitorando a fadiga cognitiva e o declínio da concentração.</p>
+            
+            <div class="science-cards">
+                <div class="sci-card">
+                    <h3>Análise Postural</h3>
+                    <p>Usa o monitoramento de sensores de pressão e IMU para alertar quando a postura correta está sendo comprometida.</p>
+                </div>
+                <div class="sci-card">
+                    <h3>Sincronia de Iluminação</h3>
+                    <p>Luzes inteligentes ajustam o ambiente para garantir conforto visual e eliminar a fadiga durante o estudo prolongado.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="future-section">
+            <h2>O futuro do aprendizado. <span>Hoje.</span></h2>
+            <p>Resultado final: Uma plataforma de estado da arte.</p>
+            <p class="future-desc">A MILA transforma seu ambiente em um hub de alta performance, unindo ergonomia, monitoramento de comportamento e IA. A solução definitiva para quem busca aprender mais, cansando menos.</p>
+            <div class="investment-tag">Investimento Total: R$ 1064,96</div>
+        </section>
+    </main>
+
+    <div id="modal-mesa" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Estrutura da Mesa Inteligente</h2>
+            <p>A base ergonômica e robusta projetada sob medida para sustentar todo o ecossistema inteligente da MILA. Além de garantir estabilidade e um design minimalista, ela integra o espaço físico de estudos com os módulos tecnológicos de forma harmoniosa.</p>
+        </div>
+    </div>
+
+    <div id="modal-braco" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Câmera Full HD com Visão Computacional</h2>
+            <p>Responsável por monitorar em tempo real a presença do estudante, os hábitos de estudo e o desempenho geral na mesa. Através de visão computacional, ela auxilia na logística do espaço e no acompanhamento ativo das atividades.</p>
+        </div>
+    </div>
+
+    <div id="modal-caixa" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Tela LCD com Integração de IA</h2>
+            <p>Visor inteligente responsável por apresentar em tempo real os insights de desempenho do estudo. Atua em conjunto com a Inteligência Artificial para fornecer orientações dinâmicas, lembretes e suporte interativo direto na superfície de trabalho.</p>
+        </div>
+    </div>
+
+    <div id="modal-sensores" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Giroscópio e Sensores Posturais</h2>
+            <p>Tecnologia integrada (presente no ecossistema da cadeira e da estrutura) que se atenta rigorosamente à postura do usuário. O giroscópio monitora a inclinação e a ergonomia física, emitindo alertas preventivos para evitar problemas posturais.</p>
+        </div>
+    </div>
+
+    <div id="modal-fonte" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Sensor LDR e Controle de Luminosidade</h2>
+            <p>Componente responsável por monitorar o nível de luz do ambiente em tempo real. Integrado ao sistema, ele aciona automaticamente a fita LED da mesa assim que o espaço começa a escurecer, garantindo a claridade perfeita para os estudos.</p>
+        </div>
+    </div>
+    <div id="modal-fita" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Sistema de Fita LED Automatizada</h2>
+            <p>Iluminação inteligente programada para acender automaticamente assim que o ambiente escurece ou quando a luz natural diminui. Ela garante o nível de iluminância ideal (baseado na NHO 11) para manter o conforto visual durante os estudos noturnos.</p>
+        </div>
+    </div>
+
     <script src="../index.js" defer></script>
+    <script src="componentes.js" defer></script>
+
 </body>
 </html>

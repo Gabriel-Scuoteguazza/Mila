@@ -25,7 +25,6 @@
     </header>
 
     <main class="main-content">
-        <!-- Hero Section com Imagem e Texto -->
         <section class="hero-referencias">
             <div class="hero-banner">
                 <div class="hero-text-overlay">
@@ -39,7 +38,6 @@
             </div>
         </section>
 
-        <!-- Cards Section -->
         <section class="cards-section">
             <div class="ref-card" data-modal="modal-artigos">
                 <h2>ARTIGOS</h2>
@@ -53,7 +51,6 @@
         </section>
     </main>
 
-    <!-- Modais -->
     <div id="modal-artigos" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -140,36 +137,6 @@
     </div>
 
     <script src="../index.js" defer></script>
-    <script>
-        const cards = document.querySelectorAll('.ref-card');
-        const modals = document.querySelectorAll('.modal');
-        const closeButtons = document.querySelectorAll('.close-button');
-
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const modal = document.getElementById(card.getAttribute('data-modal'));
-                modal.classList.remove('hide');
-                modal.classList.add('show');
-            });
-        });
-
-        function closeModal(modal) {
-            modal.classList.remove('show');
-            modal.classList.add('hide');
-            setTimeout(() => {
-                modal.classList.remove('hide');
-            }, 300);
-        }
-
-        closeButtons.forEach(btn => {
-            btn.addEventListener('click', () => closeModal(btn.closest('.modal')));
-        });
-
-        window.addEventListener('click', (e) => {
-            modals.forEach(modal => {
-                if (e.target === modal) closeModal(modal);
-            });
-        });
-    </script>
+    <script src="referencias.js" defer></script>
 </body>
 </html>

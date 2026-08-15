@@ -7,9 +7,11 @@
 .desenvolvimento1 h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--text);
     margin-left: 15px;
 }
+
+
 
 .carousel {
     display: flex;
@@ -23,8 +25,14 @@
     user-select: none;
 }
 
-.carousel::-webkit-scrollbar { display: none; }
-.carousel.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+}
 
 .carousel-card {
     position: relative;
@@ -49,13 +57,15 @@
     pointer-events: none;
 }
 
-.carousel-hint { display: none; }
+.carousel-hint {
+    display: none;
+}
 
 .desenvolvimento2 {
     padding-bottom: 5rem;
 }
 
-.desenvolvimento2 > div {
+.desenvolvimento2>div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,7 +75,7 @@
 .desenvolvimento2 h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--text);
 }
 
 .desenvolvimento2 p {
@@ -85,10 +95,28 @@
     cursor: pointer;
 }
 
+.icones {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+
+    display: flex;
+    justify-content: flex-end; /* Joga o botão do tema para a direita */
+    align-items: center;
+}
+
+body.light-mode .desenvolvimento2 button {
+    color: #6E038C;
+    border-color: #6E038C;
+}
+
 .conclusao .cards {
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
 }
 
 .conclusao .cards h4 {
@@ -98,10 +126,16 @@
     text-align: center;
 }
 
-.conclusao .cards p { text-align: center; }
+.conclusao .cards p {
+    text-align: center;
+}
+
+body.light-mode .conclusao .cards h4 {
+    color: #fff;
+}
 
 .card {
-    width: 420px;
+    width: 30rem;
     padding: 2rem;
     background: #E1D6FF;
     color: black;
@@ -109,9 +143,56 @@
     position: static;
 }
 
-.card1, .card3 { align-self: flex-start; }
-.card2, .card4 { align-self: flex-end; }
+body.light-mode .card {
+    background: #3D013D;
+    color: #fff;
+}
+
+.card1,
+.card3 {
+    align-self: flex-start;
+}
+
+.card2,
+.card4 {
+    align-self: flex-end;
+}
 
 @media (max-width: 760px) {
-    .carousel-card { flex-basis: 88vw; }
+    .carousel-card {
+        flex-basis: 88vw;
+    }
 }
+
+.action-card-container {
+    width: 100%;
+    height: 40rem;
+    background: rgba(74, 0, 114, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+.mila-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    z-index: 1;
+}
+

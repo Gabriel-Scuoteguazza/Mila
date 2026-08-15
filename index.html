@@ -1,136 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="PT-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js"></script>
+        <title>Mila</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Mila</title>
-</head>
+    <body>
+        
+        <header class="header">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo.svg" alt="Mila Logo" />
+                </a>
+            </div>
 
-<body>
-    <header class="header">
-        <div class="logo">
-            <a href="index.html">
-                <img src="assets/logo.svg" alt="Mila Logo">
-            </a>
-        </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="paginas/instrucoes.html">Instruções</a></li>
+                    <li><a href="paginas/componentes.html">Componentes</a></li>
+                    <li><a href="paginas/quem-somos.html">Quem Somos</a></li>
+                    <li><a href="paginas/referencias.html">Referências</a></li>
+                    <li><a href="paginas/nosso-jogo.html">Nosso Jogo</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <nav>
-            <ul class="nav-links">
-                <li><a href="paginas/instrucoes.html">Instruções</a></li>
-                <li><a href="paginas/componentes.html">Componentes</a></li>
-                <li><a href="paginas/quem-somos.html">Quem Somos</a></li>
-                <li><a href="paginas/referencias.html">Referências</a></li>
-                <li><a href="paginas/nosso-jogo.html">Nosso Jogo</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <section class="comeco">
-
-            <div class="imagem-container">
-
-                <img class="imagem-mila" src="assets/mila.png" alt="Imagem da Mila">
-
-                <div class="icones">
-
-                    <div class="icones-esquerda">
-                        <div class="icone">
-                            <img src="assets/perfil.svg" alt="Imagem de perfil">
-                        </div>
-
-                        <div class="icone">
-                            <img src="assets/notificacoes.svg" alt="Imagem de notificão">
-                        </div>
+        <main class="main-content">
+            <section class="comeco">
+                <div class="imagem-container">
+                    <div class="action-card-container">
+                        <video autoplay muted loop playsinline width="1500" height="1000" controls>
+                          <source src="./assets/tem_como_colocar_MILA_na_tel.mp4" type="video/mp4">
+                          Seu navegador não suporta este vídeo.
+                        </video>
+                        <div class="video-overlay"></div>
                     </div>
 
-                    <div class="icone">
-                        <img src="assets/alterarVisual.svg" alt="Imagem de visual">
+                    <div class="icones">
+                        <!--<div class="icones-esquerda">
+                            <div class="icone">
+                                <img
+                                    src="assets/perfil.svg"
+                                    alt="Imagem de perfil"
+                                />
+                            </div>
+
+                            <div class="icone">
+                                <img
+                                    src="assets/notificacoes.svg"
+                                    alt="Imagem de notificão"
+                                />
+                            </div>
+                        </div>-->
+                        <button class="icone" id="theme-toggle" type="button">
+                            <img
+                                src="assets/alterarVisual.svg"
+                                alt="Alterar modo de visualização"
+                            />
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="desenvolvimento1">
+                <div>
+                    <h1>Um Olhar Detalhado</h1>
+
+                    <div class="cards carousel" aria-label="Destaques da MILA">
+                        <article class="carousel-card">
+                            <img
+                                src="assets/carrosel1.png"
+                                alt="MILA auxiliando no alinhamento em tempo real"
+                            />
+                            <h3>Alinhamento em tempo real</h3>
+                        </article>
+                        <article class="carousel-card">
+                            <img
+                                src="assets/Intersect (2).png"
+                                alt="MILA auxiliando no alinhamento em tempo real"
+                            />
+                            <h3>Luz na medida certa</h3>
+                        </article>
+                        <article class="carousel-card">
+                            <img
+                                src="assets/carrossel3.png"
+                                alt="MILA auxiliando no alinhamento em tempo real"
+                            />
+                            <h3>Silêncio produtivo.</h3>
+                        </article>
+                        <article class="carousel-card">
+                            <img
+                                src="assets/carrossel2.png"
+                                alt="MILA auxiliando no alinhamento em tempo real"
+                            />
+                            <h3>Conforto invisível.</h3>
+                        </article>
+                    </div>
+                    <p class="carousel-hint">Arraste para explorar</p>
+                </div>
+            </section>
+
+            <section class="desenvolvimento2">
+                <div>
+                    <h1>Inteligência que cuida de você</h1>
+                    <p>
+                        Apresentamos a MILA ― Módulo de Inteligência, Logística
+                        e Aprendizado. Uma mesa inteligente projetada para
+                        transformar seu ambiente de estudos em um ecossistema de
+                        alta performance. Através da integração harmônica entre
+                        sensores de precisão e hardware dedicado, a MILA
+                        monitora sua postura, otimiza a ergonomia e ajusta o
+                        ambiente para que seu foco seja absoluto e sua saúde,
+                        prioridade.
+                    </p>
+
+                    <button class="btn">Nossos Diferenciais</button>
+                </div>
+            </section>
+
+            <section class="conclusao">
+                <div class="cards">
+                    <div class="card card1">
+                        <h4>Além das telas</h4>
+                        <p>
+                            Diferente das IAs comuns que vivem apenas no seu
+                            navegador, a MILA sente o mundo real. Ela não apenas
+                            processa dados; ela entende o seu espaçon físico e
+                            interage com o seu ambiente para otimizar seu
+                            rendimento.
+                        </p>
                     </div>
 
+                    <div class="card card2">
+                        <h4>Adeus ao cansaço</h4>
+                        <p>
+                            Uma mesa comum é estática. A MILA é dinâmica. Com
+                            sensores de inclinação e pressão, ela monitora sua
+                            coluna de forma invisível, alertando você antes
+                            mesmo de a dor aparecer. É a ergonomia que se adapta
+                            a você, e não o contrário.
+                        </p>
+                    </div>
+
+                    <div class="card card3">
+                        <h4>Organização sem esforço</h4>
+                        <p>
+                            Equipada com uma câmera inteligente dedicada à
+                            logística, a MILA reconhece seus materiais e auxilia
+                            na gestão do seu espaço de trabalho. Ela aprende
+                            onde as coisas devem estar para que sua mente fique
+                            livre para o que importa.
+                        </p>
+                    </div>
+
+                    <div class="card card4">
+                        <h4>O ambiente perfeito, sempre</h4>
+                        <p>
+                            Enquanto outras soluções exigem ajustes manuais, a
+                            MILA utiliza IA para equilibrar a luminosidade e
+                            monitorar o ruído ambiente. Ela cria uma bolha de
+                            produtividade personalizada para o seu nível de
+                            cansaço e tipo de tarefa.
+                        </p>
+                    </div>
                 </div>
-
-            </div>
-
-        </section>
-
-        <section class="desenvolvimento1">
-            <div>
-                <h1>Um Olhar Detalhado</h1>
-
-                <div class="cards carousel" aria-label="Destaques da MILA">
-                    <article class="carousel-card">
-                        <img src="assets/carrosel1.png" alt="MILA auxiliando no alinhamento em tempo real">
-                        <h3>Alinhamento em tempo real</h3>
-                    </article>
-                    <article class="carousel-card">
-                        <img src="assets/carrosel1.png" alt="MILA auxiliando no alinhamento em tempo real">
-                        <h3>Luz na medida certa</h3>
-                    </article>
-                    <article class="carousel-card">
-                        <img src="assets/carrosel1.png" alt="MILA auxiliando no alinhamento em tempo real">
-                        <h3>Luz na medida certa</h3>
-                    </article>
-                </div>
-                <p class="carousel-hint">Arraste para explorar</p>
-
-            </div>
-
-        </section>
-
-        <section class="desenvolvimento2">
-            <div>
-                <h1>Inteligência que cuida de você</h1>
-                <p>Apresentamos a MILA ― Módulo de Inteligência, Logística e Aprendizado. Uma mesa inteligente projetada
-                    para transformar seu ambiente de estudos em um ecossistema de alta performance. Através da
-                    integração harmônica entre sensores de precisão e hardware dedicado, a MILA monitora sua postura,
-                    otimiza a ergonomia e ajusta o ambiente para que seu foco seja absoluto e sua saúde, prioridade.</p>
-
-                <button class="btn">Nossos Diferenciais</button>
-            </div>
-        </section>
-
-        <section class="conclusao">
-            <div class="cards">
-                <div class="card card1">
-                    <h4>Além das telas</h4>
-                    <p>Diferente das IAs comuns que vivem apenas no seu navegador, a MILA sente o mundo real. Ela não
-                        apenas processa dados; ela entende o seu espaçon físico e interage com o seu ambiente para
-                        otimizar seu rendimento.</p>
-                </div>
-
-                <div class="card card2">
-                    <h4>Adeus ao cansaço</h4>
-                    <p>Uma mesa comum é estática. A MILA é dinâmica. Com sensores de inclinação e pressão, ela monitora
-                        sua coluna de forma invisível, alertando você antes mesmo de a dor aparecer. É a ergonomia que
-                        se adapta a você, e não o contrário.</p>
-                </div>
-
-                <div class="card card3">
-                    <h4>Organização sem esforço</h4>
-                    <p>Equipada com uma câmera inteligente dedicada à logística, a MILA reconhece seus materiais e
-                        auxilia na gestão do seu espaço de trabalho. Ela aprende onde as coisas devem estar para que sua
-                        mente fique livre para o que importa.</p>
-                </div>
-
-                <div class="card card4">
-                    <h4>O ambiente perfeito, sempre</h4>
-                    <p>Enquanto outras soluções exigem ajustes manuais, a MILA utiliza IA para equilibrar a luminosidade
-                        e monitorar o ruído ambiente. Ela cria uma bolha de produtividade personalizada para o seu nível
-                        de cansaço e tipo de tarefa.</p>
-                </div>
-
-            </div>
-        </section>
-    </main>
-    <script src="index.js" defer></script>
-</body>
-
+            </section>
+        </main>
+        <script src="index.js" defer></script>
+    </body>
 </html>

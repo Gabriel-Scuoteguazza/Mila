@@ -1,48 +1,173 @@
 @import url(../css/global.css);
 
-.titulo {
-    padding-bottom: 5rem;
-
-    h2 {
-        font-size: 2.5rem;
-        padding-bottom: 5rem;
-    }
-
-    p {
-        font-size: 1.5rem;
-        line-height: 1.7;
-        color: #AAE6B2;
-
-    }
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
-.funcionamento {
+/* Hero Instruções */
+.instrucoes-hero {
+    text-align: center;
+    max-width: 900px;
+    margin-bottom: 70px;
+    margin-top: 20px;
+}
+
+.instrucoes-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.instrucoes-hero p {
+    font-size: 1.1rem;
+    color: #bfa1e2;
+    line-height: 1.5;
+}
+
+/* Seção de Passos */
+.steps-section {
     width: 100%;
-    padding: 5rem 1rem;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    margin-bottom: 100px;
 }
 
-.subtitulo {
+.step-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.step-row.reverse {
+    flex-direction: row-reverse;
+}
+
+.step-info {
+    flex: 1;
+}
+
+.step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.step-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.step-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.step-desc p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #dcd6f7;
+    margin-bottom: 12px;
+}
+
+.step-desc strong {
+    color: #00ff88;
+}
+
+.step-image {
+    flex: 1;
     display: flex;
     justify-content: center;
-    padding-bottom: 2rem;
-
+    align-items: center;
+    max-width: 420px;
 }
 
-.conteudo {
+.step-image img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+}
+
+/* MILA em Ação */
+.mila-action-section {
+    width: 100%;
+    max-width: 1100px;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+
+.action-header {
+    margin-bottom: 35px;
+}
+
+.action-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.action-header p {
+    font-size: 1.05rem;
+    color: #bfa1e2;
+}
+
+.action-card-container {
+    width: 100%;
+    height: 450px;
+    background: rgba(74, 0, 114, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .step-row, .step-row.reverse {
+        flex-direction: column;
+        text-align: left;
+    }
+    .instrucoes-hero h1 {
+        font-size: 2.2rem;
+    }
+    .action-card-container {
+        height: 300px;
+    }
+}
+
+.action-card-container {
+    width: 100%;
+    height: 450px;
+    background: rgba(74, 0, 114, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* Essencial para o vídeo respeitar as bordas arredondadas do card */
+    display: flex;
+    justify-content: center;
     align-items: center;
-    text-align: left;
+}
 
-    div {
-        p {
-                    max-width: 900px; /* Limita a largura máxima do texto */
-
-        }
-    }
-
-    .imagem {
-        display: flex;
-        justify-content:   right;
-        align-items: right;
-    }
+.mila-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz o vídeo preencher o espaço inteiro sem distorcer as proporções */
+    display: block;
 }

@@ -5,10 +5,43 @@
     font-family: "Nunito Sans", sans-serif
 }
 
+:root {
+    --background: linear-gradient(180deg, #140126 0%, #4d3567 48%, #140126 100%);
+    --text: #fff;
+    --header-bg: rgba(20, 1, 38, 0.18);
+}
+
 body {
-    background: linear-gradient(180deg, #140126 0%, #4d3567 48%, #140126 100%);
+    background: var(--background);
+    color: var(--text);
+}
+
+body.light-mode {
+    --background: #ECE5FF;
+    --text: #320068;
+    --header-bg: rgba(255, 255, 255, 0.5);
+
+    h3 {
+        --text: #fff;
+
+    }
+}
+
+h3 {
+    color: var(--text);
+}
+
+body.light-mode h3 {
     color: #fff;
 }
+
+.icone {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 
 header {
     display: flex;
@@ -23,7 +56,7 @@ header {
 
 
     &.is-scrolled {
-        background-color: rgba(20, 1, 38, 0.18);
+        background-color: var(--header-bg);
         backdrop-filter: blur(8px);
     }
 
@@ -39,7 +72,7 @@ header {
 
                 a {
                     text-decoration: none;
-                    color: #fff;
+                    color: var(--text);
                     text-transform: uppercase;
                     font-weight: 700;
                     font-size: 1.2rem;
@@ -98,4 +131,8 @@ main {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.active{
+    color: #E1D6FF;
 }
