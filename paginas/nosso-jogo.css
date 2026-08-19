@@ -124,11 +124,6 @@
 }
 
 
-
-/* =========================
-   LIGHT MODE - NOSSO JOGO
-   ========================= */
-
 body.light-mode .jogo-hero h1 {
     color: #6E038C;
 }

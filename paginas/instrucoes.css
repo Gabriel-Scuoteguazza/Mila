@@ -1,8 +1,5 @@
 @import url(../css/global.css);
 
-/* =========================================
-   ESTILOS GERAIS - INSTRUÇÕES (Desktop)
-   ========================================= */
 .main-content {
     display: flex;
     flex-direction: column;
@@ -11,7 +8,6 @@
     color: #ffffff;
     font-family: 'Nunito Sans', sans-serif;
     width: 100%;
-    /* O overflow aqui foi removido para não quebrar o sticky do header */
 }
 
 .instrucoes-hero {
@@ -35,7 +31,6 @@
     line-height: 1.5;
 }
 
-/* Seção de Passos */
 .steps-section {
     width: 100%;
     max-width: 1100px;
@@ -135,7 +130,6 @@
     color: #bfa1e2;
 }
 
-/* Container de Vídeo Corrigido */
 .action-card-container {
     width: 100%;
     height: 450px;
@@ -144,13 +138,12 @@
     backdrop-filter: blur(10px);
     border-radius: 35px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    overflow: hidden; /* Corta qualquer conteúdo extra para não vazar pro lado */
+    overflow: hidden; 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Força a tag video padrão a respeitar os limites */
 .action-card-container video {
     width: 100%;
     height: 100%;
@@ -158,10 +151,6 @@
     display: block;
 }
 
-
-/* =========================================
-   MODO CLARO - INSTRUÇÕES
-========================================= */
 body.light-mode .instrucoes-hero h1 { color: #6E038C; }
 body.light-mode .instrucoes-hero p { color: #3D013D; }
 body.light-mode .step-number { color: #c800ff; }
@@ -175,12 +164,7 @@ body.light-mode .active{
 }
 
 
-
-/* =========================================
-   RESPONSIVIDADE (Mobile - max-width: 768px)
-   ========================================= */
 @media (max-width: 768px) {
-    /* REMOVIDO: a regra html, body { overflow-x: hidden } estava aqui e quebrava o menu */
 
     .main-content {
         padding: 20px 15px;
@@ -242,7 +226,7 @@ body.light-mode .active{
 
     .action-card-container {
         width: 100%;
-        height: 220px; /* Mantém a proporção sem explodir a largura da tela */
+        height: 220px; 
         border-radius: 20px;
         margin: auto;
     }

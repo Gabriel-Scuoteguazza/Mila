@@ -1,8 +1,5 @@
 @import url('../global.css');
 
-/* =========================================
-   ESTILOS GERAIS - REFERÊNCIAS (Desktop)
-   ========================================= */
 * {
     box-sizing: border-box;
 }
@@ -16,7 +13,7 @@
     font-family: 'Nunito Sans', sans-serif;
     width: 100%;
     max-width: 100vw;
-    overflow-x: clip; /* Trava vazamentos laterais sem quebrar o menu fixo */
+    overflow-x: clip; 
 }
 
 .hero-referencias {
@@ -87,7 +84,6 @@
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Cards Section */
 .cards-section {
     display: flex;
     gap: 30px;
@@ -126,7 +122,6 @@
     box-shadow: 0 12px 25px rgba(0, 255, 136, 0.2);
 }
 
-/* Estilização dos Modais */
 .modal {
     display: none;
     position: fixed;
@@ -232,9 +227,6 @@
     transform: scale(1.1);
 }
 
-/* =========================================
-   MODO CLARO
-========================================= */
 body.light-mode .ref-card { background-color: #3D013D; }
 body.light-mode .ref-card h2 { color: #59DE6B; }
 body.light-mode .click-instruction { color: #BF05F2; }
@@ -244,10 +236,6 @@ body.light-mode .active{
 }
 
 
-
-/* =========================================
-   RESPONSIVIDADE E TOUCH (Mobile - max-width: 768px)
-========================================= */
 @media (max-width: 768px) {
     .main-content {
         padding: 20px 15px;
