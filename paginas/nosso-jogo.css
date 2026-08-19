@@ -9,7 +9,6 @@
     font-family: 'Nunito Sans', sans-serif;
 }
 
-/* Hero Section */
 .jogo-hero {
     text-align: center;
     max-width: 900px;
@@ -30,7 +29,6 @@
     color: #dcd6f7;
 }
 
-/* Seção do Vídeo */
 .jogo-video-section {
     width: 100%;
     max-width: 1000px;
@@ -70,7 +68,6 @@
     z-index: 1;
 }
 
-/* Descrição Intermediária */
 .jogo-desc-section {
     text-align: center;
     max-width: 850px;
@@ -83,7 +80,6 @@
     color: #dcd6f7;
 }
 
-/* Seção Botão GDevelop */
 .jogo-cta-section {
     text-align: center;
     margin-bottom: 60px;
@@ -120,8 +116,50 @@
     .jogo-hero h1 {
         font-size: 2.2rem;
     }
+
     .video-card-container {
         height: 280px;
         border-radius: 20px;
     }
+}
+
+
+
+/* =========================
+   LIGHT MODE - NOSSO JOGO
+   ========================= */
+
+body.light-mode .jogo-hero h1 {
+    color: #6E038C;
+}
+
+body.light-mode .jogo-hero p {
+    color: #3D013D;
+}
+
+body.light-mode .video-card-container {
+    background: #140126;
+    border-color: rgba(20, 1, 38, 0.2);
+}
+
+body.light-mode .jogo-desc-section p {
+    color: #3D013D;
+}
+
+body.light-mode .cta-text {
+    color: #7F00A2;
+}
+
+body.light-mode .gdevelop-btn {
+    background: #140126;
+    color: #00ff88;
+}
+
+body.light-mode .gdevelop-btn:hover {
+    background-color: #7F00A2;
+    color: #9ffed2;
+}
+
+body.light-mode .active{
+  color: #16a34a;
 }

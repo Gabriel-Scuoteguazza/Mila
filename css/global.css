@@ -136,3 +136,107 @@ main {
 .active{
     color: #E1D6FF;
 }
+
+
+/*   CABEÇALHO E MENU GLOBAL (Desktop e Mobile)*/
+
+.menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.menu-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-hamburguer {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.menu-hamburguer span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--text);
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.menu-mobile-overlay {
+    position: fixed;
+    top: 0;
+    right: 0; 
+    width: 75%; 
+    max-width: 320px;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%); 
+    transition: transform 0.3s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5); 
+    background: rgb(163, 88, 223, 0.9);
+}
+
+.menu-mobile-overlay.open {
+    transform: translateX(0);
+}
+
+.fechar-menu {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.nav-links-mobile {
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.nav-links-mobile a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 1.5rem;
+    }
+
+    .menu-desktop {
+        display: none;
+    }
+
+    .menu-hamburguer {
+        display: flex;
+    }
+}

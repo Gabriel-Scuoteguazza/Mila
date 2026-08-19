@@ -1,4 +1,4 @@
-@import url(../css/global.css);
+@import url('../global.css'); /* Import ajustado para voltar uma pasta */
 
 :root {
   --glass-bg: rgba(74, 0, 114, 0.15);
@@ -7,11 +7,25 @@
   --neon-pink: #d946ef;
 }
 
+/* =========================================
+   ESTILOS GERAIS - QUEM SOMOS (Desktop)
+   ========================================= */
+* {
+  box-sizing: border-box; /* Garante que os paddings não estiquem a tela */
+}
+
+.main-content {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip; /* Protege contra vazamento sem quebrar o menu fixo */
+}
+
 .hero-clean {
   padding: 120px 20px 60px;
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .nexa-tag {
@@ -24,7 +38,6 @@
   filter: drop-shadow(0 10px 20px rgba(50, 0, 104, 0.4));
   display: inline-block;
   margin-top: -4rem;
-  margin-bottom: -1rem;
 }
 
 .hero-clean h1 {
@@ -50,12 +63,12 @@
   margin: 0 auto;
 }
 
-/* About Section */
 .about-clean {
   text-align: center;
   padding: 40px 20px 80px;
   max-width: 1000px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .about-clean h2 {
@@ -83,22 +96,24 @@
 }
 
 .jose {
-  display: flex;
   text-align: center;
   color: #aaa;
 }
 
-/* Team Grid Section */
 .team-grid-section {
-  padding: 0 50px 120px;
+  padding: 0 20px 120px;
+  width: 100%;
 }
 
+/* TROCADO DE GRID PARA FLEXBOX (À prova de falhas) */
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap; /* Se não couber, joga pra baixo automaticamente */
+  justify-content: center;
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .glass-card {
@@ -110,8 +125,12 @@
   overflow: hidden;
   padding: 20px;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s ease;
   position: relative;
+
+  /* Faz os cards terem 25% da tela no PC, mas força a quebra no mobile */
+  width: calc(25% - 30px);
+  min-width: 250px; 
 }
 
 .glass-card:hover {
@@ -133,7 +152,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
   transition: transform 0.5s ease;
   filter: grayscale(20%);
 }
@@ -174,16 +192,82 @@
   margin-bottom: 10px;
 }
 
-.name-pink {
-  color: var(--neon-pink);
-}
-
-.name-green {
-  color: var(--neon-green);
-}
+.name-pink { color: var(--neon-pink); }
+.name-green { color: var(--neon-green); }
 
 .card-content p {
   font-size: 0.9rem;
   color: #ccc;
   line-height: 1.5;
+}
+
+/* =========================================
+   MODO CLARO
+========================================= */
+body.light-mode { background: #ECE5FF; color: #2D004D; }
+body.light-mode .hero-clean h1,
+body.light-mode .about-clean h2,
+body.light-mode .hero-clean p,
+body.light-mode .about-text-grid,
+body.light-mode .jose { color: #2D004D; }
+body.light-mode .text-glow {
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px #16a34a;
+  filter: drop-shadow(0 0 0.01rem rgb(147, 215, 142, 0.1));
+}
+body.light-mode .about-clean h2 span { color: #16a34a; }
+body.light-mode .glass-card {
+  background: rgb(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(110, 3, 140, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(50, 0, 104, 0.06);
+}
+body.light-mode .glass-card:hover {
+  border-color: #22c55e;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(50, 0, 104, 0.12), 0 0 15px rgba(34, 197, 94, 0.25);
+}
+body.light-mode .card-content p { color: #264c15; }
+body.light-mode .name-pink { color: #6E038C; }
+body.light-mode .name-green { color: #15803D; }
+body.light-mode .social-overlay {
+  background: linear-gradient(to top, rgb(30, 184, 89, 0.7) 0%, transparent 100%);
+  color: #ffffff;
+}
+
+body.light-mode .active{
+  color: #16a34a;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE (Mobile - max-width: 768px)
+========================================= */
+@media (max-width: 768px) {
+  .hero-clean { padding: 40px 15px; }
+
+  .hero-clean h1 {
+    font-size: 2.2rem;
+    word-wrap: break-word; 
+  }
+
+  .about-clean { padding: 20px 15px 40px; }
+  .about-clean h2 { font-size: 1.5rem; }
+
+  .team-grid-section { padding: 0 15px 60px; }
+
+  .team-grid {
+    flex-direction: column; /* Força 100% um em baixo do outro */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .glass-card {
+    width: 100% !important; /* Sobrescreve o width do desktop */
+    max-width: 350px;
+  }
+
+  .card-img-container { height: 250px; }
 }

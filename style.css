@@ -102,7 +102,7 @@
     right: 20px;
 
     display: flex;
-    justify-content: flex-end; /* Joga o botão do tema para a direita */
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -131,7 +131,7 @@ body.light-mode .desenvolvimento2 button {
 }
 
 body.light-mode .conclusao .cards h4 {
-    color: #fff;
+    color: #00ff88;
 }
 
 .card {
@@ -177,7 +177,7 @@ body.light-mode .card {
     justify-content: center;
     align-items: center;
     position: relative;
-
+}
 .mila-video {
     width: 100%;
     height: 100%;
@@ -191,8 +191,85 @@ body.light-mode .card {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
     pointer-events: none;
     z-index: 1;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 1.5rem;
+    }
+
+    main {
+        padding: 1rem 1.5rem;
+    }
+
+    .menu-desktop {
+        display: none;
+    }
+
+    .menu-hamburguer {
+        display: flex;
+    }
+
+    .desenvolvimento1 h1, 
+    .desenvolvimento2 h1 {
+        font-size: 1.8rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .desenvolvimento2 p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .action-card-container {
+        height: 15rem;
+        border-radius: 20px;
+    }
+
+    .conclusao .cards {
+        margin-left: 0;
+        margin-right: 0;
+        gap: 2rem;
+    }
+
+    .card {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+
+    .card1, .card3, .card2, .card4 {
+        align-self: center;
+    }
+
+
+    .icones {
+        top: 10px;
+        right: 10px;
+    }
+
+    video{
+        width: 150%;
+    }
+}

@@ -12,8 +12,19 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo"><a href="../index.html"><img src="../assets/logo.svg" alt="MILA Logo"></a></div>
-        <nav>
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../assets/logo.svg" alt="Mila Logo" />
+            </a>
+        </div>
+
+        <button class="menu-hamburguer" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="menu-desktop">
             <ul class="nav-links">
                 <li><a href="instrucoes.html">Instruções</a></li>
                 <li><a href="componentes.html">Componentes</a></li>
@@ -23,6 +34,20 @@
             </ul>
         </nav>
     </header>
+    <div class="menu-backdrop"></div>
+
+    <div class="menu-mobile-overlay">
+        <button class="fechar-menu" aria-label="Fechar menu">&times;</button>
+        <nav>
+            <ul class="nav-links-mobile">
+                <li><a href="instrucoes.html">Instruções</a></li>
+                <li><a href="componentes.html">Componentes</a></li>
+                <li><a href="quem-somos.html">Quem Somos</a></li>
+                <li><a href="referencias.html">Referências</a></li>
+                <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <main class="main-content">
         <!-- Hero Section do Jogo -->

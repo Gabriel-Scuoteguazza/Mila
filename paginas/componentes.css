@@ -1,4 +1,11 @@
-@import url(../css/global.css);
+@import url('../global.css');
+
+/* =========================================
+   ESTILOS GERAIS - COMPONENTES (Desktop)
+   ========================================= */
+* {
+    box-sizing: border-box;
+}
 
 .main-content {
     display: flex;
@@ -7,14 +14,17 @@
     padding: 40px 20px;
     color: #ffffff;
     font-family: 'Nunito Sans', sans-serif;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip; /* Trava a tela para não vazar pro lado */
 }
 
-/* Hero com Balões de Chat */
 .comp-hero {
     text-align: center;
     max-width: 900px;
     margin-bottom: 80px;
     margin-top: 20px;
+    width: 100%;
 }
 
 .subtitle-top {
@@ -42,6 +52,7 @@
     flex-direction: column;
     gap: 20px;
     max-width: 750px;
+    width: 100%;
     margin: 0 auto;
     background: rgba(74, 0, 114, 0.15);
     padding: 30px;
@@ -74,7 +85,6 @@
     border-bottom-right-radius: 4px;
 }
 
-/* Seção Tutor Pessoal */
 .tutor-section {
     width: 100%;
     max-width: 1100px;
@@ -90,12 +100,14 @@
     padding: 40px;
     border-radius: 30px;
     backdrop-filter: blur(10px);
+    width: 100%;
 }
 
 .tutor-image-box {
     flex: 1;
     border-radius: 20px;
     overflow: hidden;
+    width: 100%;
 }
 
 .tutor-image-box img {
@@ -142,7 +154,6 @@
     color: #00ff88;
 }
 
-/* Seção Hardware */
 .hardware-section {
     width: 100%;
     max-width: 1100px;
@@ -170,10 +181,10 @@
 }
 
 .hardware-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
 }
 
 .hardware-item {
@@ -183,6 +194,7 @@
     border-radius: 25px;
     width: 100%;
     max-width: 500px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -199,10 +211,9 @@
     width: 100%;
     max-height: 220px;
     object-fit: contain;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
 }
 
-/* Botão estilo card/referência */
 .info-btn {
     background-color: #e2dbff;
     color: #2b0c4e;
@@ -212,7 +223,7 @@
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -222,7 +233,6 @@
     transform: scale(1.05);
 }
 
-/* Seção Ciência do Foco */
 .science-section {
     width: 100%;
     max-width: 1100px;
@@ -250,6 +260,7 @@
     display: flex;
     gap: 30px;
     justify-content: center;
+    width: 100%;
 }
 
 .sci-card {
@@ -273,7 +284,6 @@
     line-height: 1.5;
 }
 
-/* Seção Futuro / Rodapé */
 .future-section {
     width: 100%;
     max-width: 1100px;
@@ -295,7 +305,7 @@
     color: #00ff88;
 }
 
-.future-section > p {
+.future-section>p {
     color: #bfa1e2;
     font-weight: 700;
     margin-bottom: 20px;
@@ -319,7 +329,6 @@
     box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
 }
 
-/* Modais idênticos ao padrão refinado */
 .modal {
     display: none;
     position: fixed;
@@ -395,14 +404,176 @@
     transform: scale(1.1);
 }
 
+/* =========================================
+   CORES DO MODO CLARO
+   ========================================= */
+body.light-mode .comp-hero h1,
+body.light-mode .hardware-header h2,
+body.light-mode .science-section h2 { color: #6E038C; }
+body.light-mode .hardware-header h2 span,
+body.light-mode .future-section h2,
+body.light-mode .future-section h2 span { color: #22c55e; }
+body.light-mode .sci-card h3 { color: #140126; }
+body.light-mode .tutor-text h2,
+body.light-mode .comp-hero h1 span,
+body.light-mode .science-section h2 span { color: #7F00A2; }
+body.light-mode .tutor-text h2 span,
+body.light-mode .tutor-features strong { color: #140126; }
+body.light-mode .tutor-text h2 { color: #fff; }
+body.light-mode .subtitle-top,
+body.light-mode .hero-clean p,
+body.light-mode .hardware-header p,
+body.light-mode .science-subtitle { color: #3D013D; }
+body.light-mode .hardware-item,
+body.light-mode .future-section { background: #140126; }
+body.light-mode .sci-card { background: #a38ac1; }
+body.light-mode .sci-card p,
+body.light-mode .future-section>p,
+body.light-mode .future-desc { color: #ffffff; }
+body.light-mode .info-btn { background-color: #6E038C; color: #00ff88; }
+body.light-mode .info-btn:hover { background-color: #7F00A2; }
+body.light-mode .tutor-content { background: #a38ac1; }
+body.light-mode .chat-container { background: #140126; }
+body.light-mode .chat-bubble.left { color: #ffffff; }
+body.light-mode .tutor-text { color: #ffffff; }
+body.light-mode .tutor-features li,
+body.light-mode .tutor-desc { color: #ffffff; }
+body.light-mode .active{
+  color: #16a34a;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE E TOUCH (Mobile - max-width: 768px)
+   ========================================= */
 @media (max-width: 768px) {
-    .tutor-content {
-        flex-direction: column;
+    .main-content {
+        padding: 20px 15px;
     }
-    .science-cards {
-        flex-direction: column;
+
+    .comp-hero {
+        margin-bottom: 40px;
     }
+
     .comp-hero h1 {
         font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+
+    .subtitle-top {
+        font-size: 0.85rem;
+    }
+
+    .chat-container {
+        padding: 20px;
+    }
+
+    .chat-bubble {
+        font-size: 0.85rem;
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .tutor-section {
+        margin-bottom: 60px;
+    }
+
+    .tutor-content {
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .tutor-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .tutor-features {
+        text-align: left;
+    }
+
+    .hardware-section {
+        margin-bottom: 60px;
+    }
+
+    .hardware-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hardware-item {
+        padding: 20px;
+    }
+
+    .hardware-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .science-section {
+        margin-bottom: 60px;
+    }
+
+    .science-cards {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .science-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .sci-card {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .future-section {
+        padding: 30px 20px;
+        margin-bottom: 30px;
+    }
+
+    .future-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .investment-tag {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    /* AJUSTES DO MODAL NO MOBILE */
+    .modal-content {
+        padding: 30px 20px 20px;
+        border-radius: 20px;
+    }
+
+    .close-button {
+        top: 15px;
+        left: 20px;
+        font-size: 1.8rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.4rem;
+        margin-top: 20px; /* Empurra o título para baixo, fugindo do botão 'X' */
+    }
+
+    .modal-content p {
+        font-size: 0.95rem; /* Ajusta o texto para caber melhor */
+    }
+
+    /* ANIMAÇÃO DIVERTIDA DE CLIQUE (Feedback Tátil para o Mobile) */
+    .info-btn:active {
+        transform: scale(0.92) !important; /* Dá uma encolhida rápida como um botão real */
+        background-color: #00ff88 !important; /* Pisca verde */
+        color: #120526 !important;
+        transition: all 0.1s ease;
+    }
+
+    .close-button:active {
+        transform: scale(0.8);
+        color: #BF05F2; /* Pisca rosa ao fechar */
+        transition: all 0.1s ease;
     }
 }

@@ -23,7 +23,13 @@
                 </a>
             </div>
 
-            <nav>
+            <button class="menu-hamburguer" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="menu-desktop">
                 <ul class="nav-links">
                     <li><a href="paginas/instrucoes.html">Instruções</a></li>
                     <li><a href="paginas/componentes.html">Componentes</a></li>
@@ -33,12 +39,26 @@
                 </ul>
             </nav>
         </header>
+        <div class="menu-backdrop"></div>
+
+        <div class="menu-mobile-overlay">
+            <button class="fechar-menu" aria-label="Fechar menu">&times;</button>
+            <nav>
+                <ul class="nav-links-mobile">
+                    <li><a href="paginas/instrucoes.html">Instruções</a></li>
+                    <li><a href="paginas/componentes.html">Componentes</a></li>
+                    <li><a href="paginas/quem-somos.html">Quem Somos</a></li>
+                    <li><a href="paginas/referencias.html">Referências</a></li>
+                    <li><a href="paginas/nosso-jogo.html">Nosso Jogo</a></li>
+                </ul>
+            </nav>
+        </div>
 
         <main class="main-content">
             <section class="comeco">
                 <div class="imagem-container">
                     <div class="action-card-container">
-                        <video autoplay muted loop playsinline width="1500" height="1000" controls>
+                        <video autoplay muted loop playsinline width="2300" height="1000" controls>
                           <source src="./assets/tem_como_colocar_MILA_na_tel.mp4" type="video/mp4">
                           Seu navegador não suporta este vídeo.
                         </video>

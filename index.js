@@ -50,14 +50,43 @@ if (localStorage.getItem("theme") === "light") {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const botaoDiferenciais = document.querySelector(".desenvolvimento2 .btn");
+    const botaoDiferenciais = document.querySelector(".desenvolvimento2 .btn")
 
     if (botaoDiferenciais) {
         botaoDiferenciais.addEventListener("click", () => {
             window.scrollBy({
                 top: 450, 
                 behavior: 'smooth'
-            });
-        });
+            })
+        })
     }
-});
+})
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuHamburguer = document.querySelector(".menu-hamburguer")
+    const menuMobileOverlay = document.querySelector(".menu-mobile-overlay")
+    const fecharMenu = document.querySelector(".fechar-menu")
+    const menuBackdrop = document.querySelector(".menu-backdrop")
+
+    if (menuHamburguer && menuMobileOverlay && fecharMenu) {
+
+        menuHamburguer.addEventListener("click", () => {
+            menuMobileOverlay.classList.add("open")
+            if (menuBackdrop) menuBackdrop.classList.add("open")
+            document.body.style.overflow = "hidden" 
+        })
+
+        const fecharMenuAction = () => {
+            menuMobileOverlay.classList.remove("open")
+            if (menuBackdrop) menuBackdrop.classList.remove("open")
+            document.body.style.overflow = "auto" 
+        }
+
+        fecharMenu.addEventListener("click", fecharMenuAction)
+
+        if (menuBackdrop) {
+            menuBackdrop.addEventListener("click", fecharMenuAction)
+        }
+    }
+})
