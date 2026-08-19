@@ -217,7 +217,7 @@ body.light-mode .text-glow {
 }
 body.light-mode .about-clean h2 span { color: #16a34a; }
 body.light-mode .glass-card {
-  background: rgb(255, 255, 255, 0.65);
+  background: rgb(243, 236, 253, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(110, 3, 140, 0.15);
