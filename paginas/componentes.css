@@ -433,7 +433,7 @@ body.light-mode .tutor-text { color: #ffffff; }
 body.light-mode .tutor-features li,
 body.light-mode .tutor-desc { color: #ffffff; }
 body.light-mode .active{
-  color: #16a34a;
+  color: #BF05F2;
 }
 
 @media (max-width: 768px) {

@@ -155,12 +155,12 @@ body.light-mode .instrucoes-hero h1 { color: #6E038C; }
 body.light-mode .instrucoes-hero p { color: #3D013D; }
 body.light-mode .step-number { color: #c800ff; }
 body.light-mode .step-header h2 { color: #7F00A2; }
-body.light-mode .action-header h2 { color: #0c6e30; }
+body.light-mode .action-header h2 { color: #087241; }
 body.light-mode .step-desc p { color: #3D013D; }
 body.light-mode .action-header p { color: #3D013D; }
 body.light-mode .step-desc strong { color: #c800ff; }
 body.light-mode .active{
-  color: #16a34a;
+  color: #BF05F2;
 }
 
 

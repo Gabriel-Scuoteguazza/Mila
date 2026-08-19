@@ -111,7 +111,6 @@
     box-shadow: 0 8px 25px rgba(0, 255, 136, 0.25);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .jogo-hero h1 {
         font-size: 2.2rem;
@@ -156,5 +155,5 @@ body.light-mode .gdevelop-btn:hover {
 }
 
 body.light-mode .active{
-  color: #16a34a;
+  color: #BF05F2;
 }
