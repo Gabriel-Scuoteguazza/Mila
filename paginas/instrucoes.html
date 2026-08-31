@@ -1,143 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="instrucoes.css">
-    <link rel="icon" type="image/png" href="../assets/nexinha.png">
-    <title>Instruções | MILA</title>
-</head>
-<body>
-    <header class="header">
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../assets/logo.svg" alt="Mila Logo" />
-            </a>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../css/global.css" />
+        <link rel="stylesheet" href="instrucoes.css" />
+        <link rel="icon" type="image/png" href="../assets/nexinha.png" />
+        <title>Instruções | MILA</title>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/logo.svg" alt="Mila Logo" />
+                </a>
+            </div>
+
+            <button class="menu-hamburguer" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="menu-desktop">
+                <ul class="nav-links">
+                    <li>
+                        <a href="instrucoes.html" class="active">Instruções</a>
+                    </li>
+                    <li><a href="componentes.html">Componentes</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
+                </ul>
+            </nav>
+
+            <button class="icone" id="theme-toggle" type="button">
+                <img
+                    src="../assets/alterarVisual.svg"
+                    alt="Alterar modo de visualização"
+                />
+            </button>
+        </header>
+        <div class="menu-backdrop"></div>
+
+        <div class="menu-mobile-overlay">
+            <button class="fechar-menu" aria-label="Fechar menu">
+                &times;
+            </button>
+            <nav>
+                <ul class="nav-links-mobile">
+                    <li><a href="instrucoes.html">Instruções</a></li>
+                    <li><a href="componentes.html">Componentes</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
+                </ul>
+            </nav>
         </div>
 
-        <button class="menu-hamburguer" aria-label="Abrir menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <main class="main-content">
+            <section class="instrucoes-hero">
+                <h1>Como a MILA Funciona</h1>
+                <p>
+                    Do primeiro ligamento ao foco absoluto. Um guia passo a
+                    passo para extrair a máxima inteligência do seu espaço.
+                </p>
+            </section>
 
-        <nav class="menu-desktop">
-            <ul class="nav-links">
-                <li><a href="instrucoes.html" class="active">Instruções</a></li>
-                <li><a href="componentes.html">Componentes</a></li>
-                <li><a href="quem-somos.html">Quem Somos</a></li>
-                <li><a href="referencias.html">Referências</a></li>
-                <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div class="menu-backdrop"></div>
-
-    <div class="menu-mobile-overlay">
-        <button class="fechar-menu" aria-label="Fechar menu">&times;</button>
-        <nav>
-            <ul class="nav-links-mobile">
-                <li><a href="instrucoes.html">Instruções</a></li>
-                <li><a href="componentes.html">Componentes</a></li>
-                <li><a href="quem-somos.html">Quem Somos</a></li>
-                <li><a href="referencias.html">Referências</a></li>
-                <li><a href="nosso-jogo.html">Nosso Jogo</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <main class="main-content">
-        <section class="instrucoes-hero">
-            <h1>Como a MILA Funciona</h1>
-            <p>Do primeiro ligamento ao foco absoluto. Um guia passo a passo para extrair a máxima inteligência do seu espaço.</p>
-        </section>
-
-        <section class="steps-section">
-            
-            <div class="step-row">
-                <div class="step-info">
-                    <div class="step-header">
-                        <span class="step-number">01</span>
-                        <h2>Inicialização e Calibragem</h2>
+            <section class="steps-section">
+                <div class="step-row">
+                    <div class="step-info">
+                        <div class="step-header">
+                            <span class="step-number">01</span>
+                            <h2>Inicialização e Calibragem</h2>
+                        </div>
+                        <div class="step-desc">
+                            <p>
+                                <strong>O que fazer:</strong> Conecte a MILA à
+                                alimentação e sente-se na sua posição natural de
+                                estudos.
+                            </p>
+                            <p>
+                                <strong>O que acontece:</strong> O sistema
+                                processará os dados iniciais do sensor IMU e de
+                                pressão para registrar o seu padrão de postura
+                                ideal para aquela sessão.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step-desc">
-                        <p><strong>O que fazer:</strong> Conecte a MILA à alimentação e sente-se na sua posição natural de estudos.</p>
-                        <p><strong>O que acontece:</strong> O sistema processará os dados iniciais do sensor IMU e de pressão para registrar o seu padrão de postura ideal para aquela sessão.</p>
+                    <div class="step-image">
+                        <img
+                            src="../assets/cabinho.png"
+                            alt="Inicialização e Calibragem"
+                        />
                     </div>
                 </div>
-                <div class="step-image">
-                    <img src="../assets/cabinho.png" alt="Inicialização e Calibragem">
-                </div>
-            </div>
 
-            <div class="step-row reverse">
-                <div class="step-info">
-                    <div class="step-header">
-                        <span class="step-number">02</span>
-                        <h2>Sincronização do Ambiente</h2>
+                <div class="step-row reverse">
+                    <div class="step-info">
+                        <div class="step-header">
+                            <span class="step-number">02</span>
+                            <h2>Sincronização do Ambiente</h2>
+                        </div>
+                        <div class="step-desc">
+                            <p>
+                                <strong>O que fazer:</strong> Posicione seus
+                                materiais de estudo (caderno, notebook, estojo)
+                                sobre a mesa.
+                            </p>
+                            <p>
+                                <strong>O que acontece:</strong> A câmera
+                                inteligente com visão computacional mapeia a
+                                logística do espaço (conceito 5S) e os sensores
+                                integrados regulam o nível ideal de iluminância
+                                (NHO 11).
+                            </p>
+                        </div>
                     </div>
-                    <div class="step-desc">
-                        <p><strong>O que fazer:</strong> Posicione seus materiais de estudo (caderno, notebook, estojo) sobre a mesa.</p>
-                        <p><strong>O que acontece:</strong> A câmera inteligente com visão computacional mapeia a logística do espaço (conceito 5S) e os sensores integrados regulam o nível ideal de iluminância (NHO 11).</p>
-                    </div>
-                </div>
-                <div class="step-image">
-                    <img src="../assets/livrinhos.webp" alt="Sincronização do Ambiente">
-                </div>
-            </div>
-
-            <div class="step-row">
-                <div class="step-info">
-                    <div class="step-header">
-                        <span class="step-number">03</span>
-                        <h2>Foco Ativo e Monitoramento</h2>
-                    </div>
-                    <div class="step-desc">
-                        <p><strong>O que fazer:</strong> Inicie suas tarefas integradas ao gerenciador visual de atividades.</p>
-                        <p><strong>O que acontece:</strong> A MILA passa a monitorar silenciosamente suas variáveis físicas. Caso você se curve (NR-17) ou o ruído ao redor quebre sua concentração, alertas sutis serão emitidos para corrigir o ambiente.</p>
+                    <div class="step-image">
+                        <img
+                            src="../assets/livrinhos.webp"
+                            alt="Sincronização do Ambiente"
+                        />
                     </div>
                 </div>
-                <div class="step-image">
-                    <img src="../assets/monitoramentooo.png" alt="Foco Ativo e Monitoramento">
-                </div>
-            </div>
 
-            <div class="step-row reverse">
-                <div class="step-info">
-                    <div class="step-header">
-                        <span class="step-number">04</span>
-                        <h2>Ciclos Inteligentes de Aprendizado</h2>
+                <div class="step-row">
+                    <div class="step-info">
+                        <div class="step-header">
+                            <span class="step-number">03</span>
+                            <h2>Foco Ativo e Monitoramento</h2>
+                        </div>
+                        <div class="step-desc">
+                            <p>
+                                <strong>O que fazer:</strong> Inicie suas
+                                tarefas integradas ao gerenciador visual de
+                                atividades.
+                            </p>
+                            <p>
+                                <strong>O que acontece:</strong> A MILA passa a
+                                monitorar silenciosamente suas variáveis
+                                físicas. Caso você se curve (NR-17) ou o ruído
+                                ao redor quebre sua concentração, alertas sutis
+                                serão emitidos para corrigir o ambiente.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step-desc">
-                        <p><strong>O que fazer:</strong> Siga as notificações físicas e os tempos sugeridos pela mesa.</p>
-                        <p><strong>O que acontece:</strong> Baseada na técnica Pomodoro e na Tríade do Tempo, a IA avisa o momento exato de pausar para descansar a mente e restabelecer a postura correta, evitando a estafa.</p>
+                    <div class="step-image">
+                        <img
+                            src="../assets/monitoramentooo.png"
+                            alt="Foco Ativo e Monitoramento"
+                        />
                     </div>
                 </div>
-                <div class="step-image">
-                    <img src="../assets/sirene.webp" alt="Ciclos Inteligentes de Aprendizado">
+
+                <div class="step-row reverse">
+                    <div class="step-info">
+                        <div class="step-header">
+                            <span class="step-number">04</span>
+                            <h2>Ciclos Inteligentes de Aprendizado</h2>
+                        </div>
+                        <div class="step-desc">
+                            <p>
+                                <strong>O que fazer:</strong> Siga as
+                                notificações físicas e os tempos sugeridos pela
+                                mesa.
+                            </p>
+                            <p>
+                                <strong>O que acontece:</strong> Baseada na
+                                técnica Pomodoro e na Tríade do Tempo, a IA
+                                avisa o momento exato de pausar para descansar a
+                                mente e restabelecer a postura correta, evitando
+                                a estafa.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-image">
+                        <img
+                            src="../assets/sirene.webp"
+                            alt="Ciclos Inteligentes de Aprendizado"
+                        />
+                    </div>
                 </div>
-            </div>
+            </section>
 
-        </section>
+            <section class="mila-action-section">
+                <div class="action-header">
+                    <h2>MILA em Ação</h2>
+                    <p>
+                        Veja em tempo real como o hardware e o software cooperam
+                        para criar o ecossistema perfeito de alta performance.
+                    </p>
+                </div>
+                <div class="action-card-container">
+                    <video autoplay muted loop playsinline controls>
+                        <source
+                            src="../assets/faca_outro_video_assim_so_que.mp4"
+                            type="video/mp4"
+                        />
+                        Seu navegador não suporta este vídeo.
+                    </video>
+                </div>
+            </section>
+        </main>
 
-        <section class="mila-action-section">
-            <div class="action-header">
-                <h2>MILA em Ação</h2>
-                <p>Veja em tempo real como o hardware e o software cooperam para criar o ecossistema perfeito de alta performance.</p>
-            </div>
-            <div class="action-card-container">
-                <video autoplay muted loop playsinline controls>
-                  <source src="../assets/faca_outro_video_assim_so_que.mp4" type="video/mp4">
-                  Seu navegador não suporta este vídeo.
-                </video>
-            </div>
-        </section>
-    </main>
-
-    <script src="../index.js" defer></script>
-</body>
+        <script src="../index.js" defer></script>
+    </body>
 </html>
