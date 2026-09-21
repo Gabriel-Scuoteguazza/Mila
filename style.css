@@ -111,12 +111,38 @@ body.light-mode .desenvolvimento2 button {
     border-color: #6E038C;
 }
 
+.conclusao {
+    position: relative;
+    padding-top: 2rem;
+}
+
 .conclusao .cards {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 3rem;
     margin-left: 10rem;
     margin-right: 10rem;
+    padding: 1rem 0;
+}
+
+.conclusao .cards::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        180deg,
+        rgba(109, 238, 126, 0.2) 0%,
+        rgba(109, 238, 126, 0.9) 18%,
+        rgba(109, 238, 126, 0.9) 82%,
+        rgba(109, 238, 126, 0.2) 100%
+    );
+    border-radius: 999px;
+    box-shadow: 0 0 18px rgba(109, 238, 126, 0.45);
 }
 
 .conclusao .cards h4 {
@@ -140,7 +166,54 @@ body.light-mode .conclusao .cards h4 {
     background: #E1D6FF;
     color: black;
     border-radius: 30px;
-    position: static;
+    position: relative;
+    z-index: 1;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9rem;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(109, 238, 126, 0.2), rgba(109, 238, 126, 0.9));
+    transform: translateY(-50%);
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(109, 238, 126, 0.45);
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #6dee7e, #9c8dff);
+    border: 4px solid rgba(20, 1, 38, 0.9);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 0 6px rgba(109, 238, 126, 0.1);
+}
+
+.card1::before,
+.card3::before {
+    right: -9rem;
+}
+
+.card1::after,
+.card3::after {
+    right: -11.5rem;
+}
+
+.card2::before,
+.card4::before {
+    left: -9rem;
+    background: linear-gradient(270deg, rgba(109, 238, 126, 0.2), rgba(109, 238, 126, 0.9));
+}
+
+.card2::after,
+.card4::after {
+    left: -11.5rem;
 }
 
 body.light-mode .card {
