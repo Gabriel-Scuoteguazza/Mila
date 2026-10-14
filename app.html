@@ -2,7 +2,7 @@
 <html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mila Mobile App · IA, Ergonomia & Estudo</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -45,7 +45,6 @@
       font-family: 'Poppins', sans-serif;
       background-color: #030108;
       color: #f1f0f5;
-      touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -108,50 +107,55 @@
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-2 sm:p-4 bg-[#030108] text-slate-100">
+<body class="min-h-screen bg-[#030108] text-slate-100">
 
   <!-- Application Header Controls -->
-  <header class="w-full max-w-md mb-2 flex items-center justify-between px-2 text-xs text-slate-400">
+  <header class="w-full max-w-5xl mx-auto mb-4 flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-xs text-slate-400">
     <div class="flex items-center space-x-2">
       <span class="w-2.5 h-2.5 rounded-full bg-milaNeonGreen animate-pulse"></span>
       <span class="font-semibold text-slate-200">Mila App v3.0 (IA & Ergonomia)</span>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="toggleCodeInspector()" class="flex items-center gap-1 px-3 py-1 bg-milaBgCardSubtle hover:bg-milaBorder text-milaNeonGreen border border-milaNeonGreen/30 rounded-full transition text-[11px] font-medium btn-hover-glow">
-        <i class="ph ph-code text-sm"></i>
-        <span>Inspetor</span>
-      </button>
-    </div>
   </header>
 
-  <!-- Mobile Frame Screen Wrapper -->
-  <main class="relative w-full max-w-[390px] h-[820px] bg-milaBgDark rounded-[45px] border-[8px] border-[#251846] shadow-[0_0_60px_rgba(11,7,23,0.95)] overflow-hidden flex flex-col justify-between select-none border-t-[10px]">
+  <!-- Conteúdo principal do app (sem moldura de telefone) -->
+  <main class="w-full max-w-5xl mx-auto px-4 pb-24">
 
-    <!-- Top Notch -->
-    <div class="w-full bg-milaBgDark px-6 pt-3 pb-2 flex justify-between items-center z-30 text-xs font-semibold text-slate-300">
-      <span id="mobileClock">09:41</span>
-      <div class="w-24 h-4 bg-black rounded-full flex items-center justify-center space-x-1">
-        <div class="w-2.5 h-2.5 bg-milaBgDark rounded-full"></div>
-      </div>
-      <div class="flex items-center gap-1.5">
-        <i class="ph ph-wifi-high text-sm text-milaNeonGreen"></i>
-        <i class="ph ph-battery-charging text-sm text-milaNeonGreen"></i>
-      </div>
-    </div>
+    <!-- Barra de navegação superior fixa -->
+    <nav id="bottomNav" class="sticky top-0 z-40 w-full bg-milaBgCard/95 backdrop-blur-md border border-milaBorder rounded-2xl px-3 py-2 flex justify-around items-center mb-6 shadow-card-glow">
+      <button onclick="navigateTo('mila-dashboard')" id="nav-mila-dashboard" class="nav-btn flex flex-col items-center gap-0.5 text-milaNeonGreen btn-hover-glow">
+        <i class="ph ph-house text-lg"></i>
+        <span class="text-[9px]">Home</span>
+      </button>
+      <button onclick="navigateTo('mila-agenda')" id="nav-mila-agenda" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition btn-hover-glow">
+        <i class="ph ph-calendar text-lg"></i>
+        <span class="text-[9px]">Agenda</span>
+      </button>
+      <button onclick="navigateTo('mila-voz')" id="nav-mila-voz" class="w-10 h-10 rounded-full bg-gradient-to-r from-milaNeonGreen to-emerald-400 text-milaBgDark flex items-center justify-center shadow-neon-green active:scale-95 transition btn-hover-glow">
+        <i class="ph ph-microphone text-xl"></i>
+      </button>
+      <button onclick="navigateTo('mila-postura')" id="nav-mila-postura" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition btn-hover-glow">
+        <i class="ph ph-chart-bar text-lg"></i>
+        <span class="text-[9px]">Postura</span>
+      </button>
+      <button onclick="navigateTo('mila-perfil')" id="nav-mila-perfil" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition btn-hover-glow">
+        <i class="ph ph-user text-lg"></i>
+        <span class="text-[9px]">Perfil</span>
+      </button>
+    </nav>
 
-    <!-- Screen Container -->
-    <div id="screenContainer" class="flex-1 overflow-y-auto px-4 py-2 relative scroll-smooth">
+    <!-- Container das telas -->
+    <div id="screenContainer" class="relative">
 
       <!-- ============================================================ -->
-      <!-- TELA DE AUTENTICAÇÃO (ÚNICA ACESSÍVEL SEM LOGIN) -->
+      <!-- TELA DE AUTENTICAÇÃO -->
       <!-- ============================================================ -->
-      <section id="mila-auth" class="mila-screen flex flex-col justify-between h-full py-2">
+      <section id="mila-auth" class="mila-screen flex flex-col justify-between py-2 max-w-md mx-auto">
         <div class="flex justify-between items-center">
           <span class="text-[9px] bg-milaNeonGreen/10 text-milaNeonGreen border border-milaNeonGreen/30 px-2 py-0.5 rounded-full">🔒 Sessão Segura</span>
           <span class="text-[10px] bg-milaBgCardSubtle text-milaPurple px-2.5 py-1 rounded-full border border-milaPurple/30 font-mono">mila-auth.html</span>
         </div>
 
-        <div class="flex flex-col items-center my-auto w-full">
+        <div class="flex flex-col items-center my-8 w-full">
           <!-- Mascot -->
           <div class="relative mb-3 flex flex-col items-center">
             <div class="w-24 h-24 rounded-full bg-gradient-to-b from-milaPurple/30 to-transparent flex items-center justify-center relative shadow-card-glow">
@@ -233,8 +237,6 @@
           <span class="flex items-center justify-center gap-1"><i class="ph ph-lock-key"></i> Sistema de Armazenamento Local</span>
         </div>
       </section>
-
-      <!-- DEMAIS TELAS (BLOQUEADAS SEM LOGIN) -->
 
       <!-- DASHBOARD -->
       <section id="mila-dashboard" class="mila-screen hidden flex-col space-y-3 pb-20 screen-transition">
@@ -385,7 +387,7 @@
           <span class="text-[9px] bg-milaBgCardSubtle text-milaPurple px-2 py-0.5 rounded-full border border-milaPurple/30 font-mono">postura</span>
         </div>
 
-        <div class="relative w-full h-40 bg-black rounded-2xl overflow-hidden border-2 border-milaNeonGreen shadow-neon-green flex items-center justify-center">
+        <div class="relative w-full h-48 bg-black rounded-2xl overflow-hidden border-2 border-milaNeonGreen shadow-neon-green flex items-center justify-center">
           <video id="postureWebcam" class="w-full h-full object-cover hidden" autoplay playsinline muted></video>
           <div id="camPlaceholder" class="flex flex-col items-center justify-center p-4 text-center">
             <i class="ph ph-camera text-3xl text-milaNeonGreen mb-1 animate-pulse"></i>
@@ -482,7 +484,7 @@
       </section>
 
       <!-- VOZ -->
-      <section id="mila-voz" class="mila-screen hidden flex-col justify-between h-full py-2 text-center pb-20 screen-transition">
+      <section id="mila-voz" class="mila-screen hidden flex-col justify-between py-2 text-center pb-20 screen-transition max-w-md mx-auto">
         <div class="flex justify-between items-center">
           <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
           <span class="text-[9px] bg-milaBgCardSubtle text-milaPurple px-2 py-0.5 rounded-full border border-milaPurple/30 font-mono">voz</span>
@@ -621,29 +623,6 @@
       </section>
 
     </div>
-
-    <!-- Bottom Navigation (BLOQUEADA SEM LOGIN) -->
-    <nav id="bottomNav" class="w-full bg-milaBgCard/95 backdrop-blur-md border-t border-milaBorder px-3 py-2 flex justify-around items-center z-20">
-      <button onclick="navigateTo('mila-dashboard')" id="nav-mila-dashboard" class="nav-btn flex flex-col items-center gap-0.5 text-milaNeonGreen btn-hover-glow">
-        <i class="ph ph-house text-lg"></i>
-        <span class="text-[9px]">Home</span>
-      </button>
-      <button onclick="navigateTo('mila-agenda')" id="nav-mila-agenda" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition btn-hover-glow">
-        <i class="ph ph-calendar text-lg"></i>
-        <span class="text-[9px]">Agenda</span>
-      </button>
-      <button onclick="navigateTo('mila-voz')" id="nav-mila-voz" class="w-10 h-10 rounded-full bg-gradient-to-r from-milaNeonGreen to-emerald-400 text-milaBgDark flex items-center justify-center shadow-neon-green transform -translate-y-2 active:scale-95 transition btn-hover-glow">
-        <i class="ph ph-microphone text-xl"></i>
-      </button>
-      <button onclick="navigateTo('mila-postura')" id="nav-mila-postura" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition btn-hover-glow">
-        <i class="ph ph-chart-bar text-lg"></i>
-        <span class="text-[9px]">Postura</span>
-      </button>
-      <button onclick="navigateTo('mila-perfil')" id="nav-mila-perfil" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition btn-hover-glow">
-        <i class="ph ph-user text-lg"></i>
-        <span class="text-[9px]">Perfil</span>
-      </button>
-    </nav>
   </main>
 
   <!-- CODE INSPECTOR MODAL -->
@@ -692,23 +671,19 @@
   </div>
 
   <!-- TOAST -->
-  <div id="toast" class="fixed bottom-6 bg-milaNeonGreen text-milaBgDark px-4 py-2 rounded-xl text-xs font-bold shadow-neon-green transition transform translate-y-20 opacity-0 z-50">
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-milaNeonGreen text-milaBgDark px-4 py-2 rounded-xl text-xs font-bold shadow-neon-green transition transform translate-y-20 opacity-0 z-50">
     Mensagem
   </div>
 
-  <!-- ============================================================ -->
-  <!-- SISTEMA DE ARMAZENAMENTO REAL (LocalStorage + IndexedDB) -->
-  <!-- ============================================================ -->
   <script>
     // ============================================================
-    // MILA STORAGE ENGINE - Sistema de persistência real por usuário
+    // MILA STORAGE ENGINE
     // ============================================================
     const MilaStorage = (() => {
       const USERS_KEY = 'mila_users_registry';
       const SESSION_KEY = 'mila_active_session';
       const DATA_PREFIX = 'mila_data_';
 
-      // Hash simples de senha (para não armazenar texto puro)
       function hashPassword(password) {
         let hash = 0;
         const salt = 'mila_salt_v3_';
@@ -721,7 +696,6 @@
         return 'h_' + Math.abs(hash).toString(36) + '_' + password.length;
       }
 
-      // Registro de usuários
       function getUsers() {
         try {
           return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
@@ -732,9 +706,7 @@
         localStorage.setItem(USERS_KEY, JSON.stringify(users));
       }
 
-      // API pública
       return {
-        // Registra novo usuário
         register({ name, email, password, avatar }) {
           if (!email || !password || !name) {
             return { success: false, error: 'Preencha todos os campos.' };
@@ -756,7 +728,6 @@
           };
           saveUsers(users);
 
-          // Cria dados iniciais do usuário
           const initialData = {
             user: {
               name: name.trim(),
@@ -776,7 +747,6 @@
           return { success: true, user: initialData.user };
         },
 
-        // Login
         login({ email, password }) {
           if (!email || !password) {
             return { success: false, error: 'Preencha e-mail e senha.' };
@@ -790,24 +760,20 @@
           if (user.passwordHash !== hashPassword(password)) {
             return { success: false, error: 'Senha incorreta. Tente novamente.' };
           }
-          // Cria sessão
           localStorage.setItem(SESSION_KEY, emailKey);
           return { success: true, user: this.getUserData(emailKey) };
         },
 
-        // Logout
         logout() {
           localStorage.removeItem(SESSION_KEY);
         },
 
-        // Sessão ativa
         getActiveSession() {
           const email = localStorage.getItem(SESSION_KEY);
           if (!email) return null;
           return this.getUserData(email);
         },
 
-        // Dados completos do usuário
         getUserData(email) {
           if (!email) return null;
           try {
@@ -816,19 +782,16 @@
           } catch { return null; }
         },
 
-        // Salva dados do usuário
         saveUserData(email, data) {
           if (!email || !data) return false;
           localStorage.setItem(DATA_PREFIX + email, JSON.stringify(data));
           return true;
         },
 
-        // Verifica se está logado
         isAuthenticated() {
           return !!localStorage.getItem(SESSION_KEY);
         },
 
-        // Limpa todos os dados (debug)
         _clearAll() {
           localStorage.removeItem(USERS_KEY);
           localStorage.removeItem(SESSION_KEY);
@@ -840,7 +803,7 @@
     })();
 
     // ============================================================
-    // ESTADO GLOBAL DA APLICAÇÃO
+    // ESTADO GLOBAL
     // ============================================================
     window.MilaState = {
       user: null,
@@ -849,7 +812,7 @@
     };
 
     // ============================================================
-    // GERENCIAMENTO DE SESSÃO
+    // SESSÃO
     // ============================================================
     function loadActiveSession() {
       const data = MilaStorage.getActiveSession();
@@ -874,13 +837,12 @@
     }
 
     // ============================================================
-    // CONTROLE DE ACESSO - BLOQUEIO TOTAL SEM LOGIN
+    // CONTROLE DE ACESSO
     // ============================================================
     function updateAuthUI() {
       const isAuth = MilaStorage.isAuthenticated();
       document.body.classList.toggle('authenticated', isAuth);
 
-      // Mostra/esconde navbar
       const nav = document.getElementById('bottomNav');
       if (nav) nav.style.display = isAuth ? 'flex' : 'none';
     }
@@ -889,7 +851,6 @@
     // NAVEGAÇÃO
     // ============================================================
     function navigateTo(screenId) {
-      // 🔒 BLOQUEIO: Sem autenticação, só pode ver a tela de auth
       if (!MilaStorage.isAuthenticated() && screenId !== 'mila-auth') {
         showToast('🔒 Faça login para acessar o app.');
         const authScreen = document.getElementById('mila-auth');
@@ -920,7 +881,7 @@
         activeNav.classList.add('text-milaNeonGreen');
       }
 
-      document.getElementById('screenContainer').scrollTop = 0;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ============================================================
@@ -1002,7 +963,6 @@
             return;
           }
 
-          // Auto-login após registro
           MilaStorage.login({ email, password });
           loadActiveSession();
           updateAuthUI();
@@ -1018,14 +978,13 @@
       window.MilaState = { user: null, tasks: [], notes: { quickNotes: '', searchNotes: '', profileBio: '' } };
       updateAuthUI();
       showToast('👋 Sessão encerrada.');
-      // Limpa formulários
       document.getElementById('formLogin').reset();
       document.getElementById('formRegister').reset();
       navigateTo('mila-auth');
     }
 
     // ============================================================
-    // ATUALIZAÇÃO DA UI
+    // UI
     // ============================================================
     window.updateProfileUI = function() {
       const u = window.MilaState.user;
@@ -1057,7 +1016,7 @@
     };
 
     // ============================================================
-    // CRUD DE TAREFAS
+    // TAREFAS
     // ============================================================
     function renderTaskList() {
       const container = document.getElementById('taskListContainer');
@@ -1137,8 +1096,7 @@
         title,
         time: time || '14:00 - 15:00',
         category: 'Geral',
-        done: false
-      });
+        done: false      });
 
       persistData();
       renderTaskList();
@@ -1305,7 +1263,7 @@
     window.showToast = showToast;
 
     // ============================================================
-    // INSPETOR DE CÓDIGO
+    // INSPETOR
     // ============================================================
     function toggleCodeInspector() {
       const modal = document.getElementById('codeInspectorModal');
@@ -1416,14 +1374,6 @@ const MilaStorage = (() => {
     }
 
     // ============================================================
-    // RELÓGIO
-    // ============================================================
-    setInterval(() => {
-      const now = new Date();
-      document.getElementById('mobileClock').innerText = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    }, 1000);
-
-    // ============================================================
     // INICIALIZAÇÃO
     // ============================================================
     window.onload = function() {
@@ -1442,10 +1392,8 @@ const MilaStorage = (() => {
       updatePomodoroDisplay();
     };
 
-    // Bloqueio adicional: qualquer tentativa de acesso direto via teclado
     document.addEventListener('keydown', (e) => {
       if (!MilaStorage.isAuthenticated()) {
-        // Bloqueia F12 e Ctrl+Shift+I
         if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
           e.preventDefault();
           showToast('🔒 Acesso restrito.');
