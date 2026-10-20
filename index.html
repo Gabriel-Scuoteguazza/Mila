@@ -13,6 +13,9 @@
         <link rel="icon" type="image/png" href="./assets/nexinha.png" />
         <script src="script.js"></script>
 
+        <!-- Importação do Phosphor Icons para o ícone da Coruja -->
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
         <title>Mila</title>
     </head>
 
@@ -80,22 +83,6 @@
                     </div>
 
                     <div class="icones">
-                        <!--<div class="icones-esquerda">
-                            <div class="icone">
-                                <img
-                                    src="assets/perfil.svg"
-                                    alt="Imagem de perfil"
-                                />
-                            </div>
-
-                            <div class="icone">
-                                <img
-                                    src="assets/notificacoes.svg"
-                                    alt="Imagem de notificão"
-                                />
-                            </div>
-                        </
-                        >-->
                         <button class="icone" id="theme-toggle" type="button">
                             <img
                                 src="assets/alterarVisual.svg"
@@ -211,5 +198,37 @@
             </section>
         </main>
         <script src="index.js" defer></script>
+
+        <div class="mila-floating-menu">
+            <!-- Botão do App (Esquerda) -->
+            <a href="mila-app/app.html" class="mila-floating-container btn-app">
+                <div class="mila-speech-bubble">
+                    Acesse o MilApp!
+                </div>
+                <div class="mila-btn-wrapper">
+                    <div class="mila-pulse-ring"></div>
+                    <div class="mila-avatar-btn">
+                        <div class="avatar-header">
+                            <!-- Ícone de Aplicativo -->
+                            <i class="ph ph-device-mobile" style="color: #00ff9d; font-size: 28px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Botão do Chat (Direita) -->
+            <a href="mila-app/chat.html" class="mila-floating-container btn-chat">
+                <div class="mila-speech-bubble">
+                    Olá! Sou a Corujinha Mila.<br>Vamos estudar?
+                </div>
+                <div class="mila-btn-wrapper">
+                    <div class="mila-pulse-ring"></div>
+                    <div class="mila-avatar-btn">
+                        <div class="avatar-header">
+                            <img src="assets/iconMilaCoruja.png" alt="Mila">
+                        </div>
+                    </div>
+                </div>
+            </a>
     </body>
 </html>

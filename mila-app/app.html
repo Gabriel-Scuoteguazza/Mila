@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MilApp · IA, Ergonomia & Estudo</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/nexinha.png" />
+  <link rel="stylesheet" href="app.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            milaBgDark: '#0b0717',
+            milaBgCard: '#160e2e',
+            milaBgCardSubtle: '#231845',
+            milaBorder: '#362461',
+            milaNeonGreen: '#00ff9d',
+            milaPurple: '#a855f7',
+            milaPink: '#f43f5e',
+            milaTextMuted: '#9a8eb8'
+          },
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          boxShadow: {
+            'neon-green': '0 0 20px rgba(0, 255, 157, 0.3)',
+            'neon-purple': '0 0 20px rgba(168, 85, 247, 0.3)',
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-[#030108] text-slate-100 font-poppins relative overflow-x-hidden">
+
+  <div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-milaPurple/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-milaNeonGreen/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+  <header class="w-full max-w-5xl mx-auto mb-4 flex flex-wrap items-center justify-between gap-3 px-4 py-4 text-xs text-slate-400 relative z-10">
+    <div class="flex items-center space-x-2 bg-milaBgCard/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-milaBorder/50">
+      <span class="w-2 h-2 rounded-full bg-milaNeonGreen animate-pulse shadow-neon-green"></span>
+    </div>
+  </header>
+
+  <main class="w-full max-w-5xl mx-auto px-4 pb-24 relative z-10">
+    <nav id="bottomNav" class="sticky top-2 z-40 w-full bg-milaBgCard/70 backdrop-blur-xl border border-milaBorder/50 rounded-2xl px-2 py-2 flex justify-around items-center mb-6 shadow-glass hidden">
+      <button onclick="navigateTo('mila-dashboard')" id="nav-mila-dashboard" class="nav-btn flex flex-col items-center gap-0.5 text-milaNeonGreen transition-colors btn-hover-glow px-3 py-1">
+        <i class="ph ph-house text-lg"></i><span class="text-[9px] font-medium">Home</span>
+      </button>
+      <button onclick="navigateTo('mila-agenda')" id="nav-mila-agenda" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition-colors btn-hover-glow px-3 py-1">
+        <i class="ph ph-calendar text-lg"></i><span class="text-[9px] font-medium">Agenda</span>
+      </button>
+      <button onclick="navigateTo('mila-voz')" id="nav-mila-voz" class="w-11 h-11 rounded-full bg-gradient-to-tr from-milaNeonGreen to-emerald-400 text-milaBgDark flex items-center justify-center shadow-neon-green active:scale-95 transition-transform">
+        <i class="ph ph-microphone text-xl"></i>
+      </button>
+      <button onclick="navigateTo('mila-postura')" id="nav-mila-postura" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition-colors btn-hover-glow px-3 py-1">
+        <i class="ph ph-chart-bar text-lg"></i><span class="text-[9px] font-medium">Sensores</span>
+      </button>
+      <button onclick="navigateTo('mila-perfil')" id="nav-mila-perfil" class="nav-btn flex flex-col items-center gap-0.5 text-milaTextMuted hover:text-white transition-colors btn-hover-glow px-3 py-1">
+        <i class="ph ph-user text-lg"></i><span class="text-[9px] font-medium">Perfil</span>
+      </button>
+    </nav>
+
+    <div id="screenContainer" class="relative">
+      
+      <!-- TELA DE AUTENTICAÇÃO -->
+      <section id="mila-auth" class="mila-screen flex flex-col justify-between py-2 max-w-md mx-auto">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-[10px] bg-milaNeonGreen/10 text-milaNeonGreen border border-milaNeonGreen/30 px-3 py-1 rounded-full flex items-center gap-1"><i class="ph ph-lock-key"></i> Sessão Segura</span>
+        </div>
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/60 rounded-3xl p-6 shadow-glass flex flex-col items-center w-full fade-in">
+          <div class="relative mb-5 flex flex-col items-center">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-b from-milaPurple/20 to-transparent flex items-center justify-center relative shadow-neon-purple border border-milaPurple/20">
+              <svg class="w-20 h-20 drop-shadow-[0_0_15px_rgba(0,255,157,0.6)]" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="42" fill="#160e2e" stroke="#9d4edd" stroke-width="2"/>
+                <circle cx="36" cy="45" r="14" fill="#231845" stroke="#00ff9d" stroke-width="2"/>
+                <circle cx="64" cy="45" r="14" fill="#231845" stroke="#00ff9d" stroke-width="2"/>
+                <circle cx="36" cy="45" r="6" fill="#00ff9d"/>
+                <circle cx="64" cy="45" r="6" fill="#00ff9d"/>
+                <polygon points="50,52 45,60 55,60" fill="#f59e0b"/>
+              </svg>
+            </div>
+            <h1 class="text-2xl font-bold mt-3 text-white tracking-tight">MilApp</h1>
+            <p class="text-[11px] text-milaTextMuted">Seu assistente ergonômico de estudos</p>
+          </div>
+          <div class="w-full bg-milaBgDark/60 border border-milaBorder/50 rounded-xl p-1 flex mb-5 text-xs">
+            <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="flex-1 py-2 rounded-lg bg-milaNeonGreen text-milaBgDark font-bold transition-all">Login</button>
+            <button onclick="switchAuthTab('register')" id="tabRegisterBtn" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all font-semibold">Cadastrar</button>
+          </div>
+          <form id="formLogin" class="w-full space-y-3" onsubmit="handleUserAuth(event, 'login')">
+            <div>
+              <label class="text-[10px] text-milaTextMuted ml-1 block mb-1 font-medium">E-mail do Estudante</label>
+              <input type="email" id="loginEmail" placeholder="seu@email.com" required class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl py-3 px-4 text-xs text-white placeholder-milaTextMuted/50 focus:border-milaNeonGreen transition-colors">
+            </div>
+            <div>
+              <label class="text-[10px] text-milaTextMuted ml-1 block mb-1 font-medium">Senha</label>
+              <input type="password" id="loginPassword" placeholder="••••••" required minlength="6" class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl py-3 px-4 text-xs text-white placeholder-milaTextMuted/50 focus:border-milaNeonGreen transition-colors">
+            </div>
+            <button type="submit" id="loginBtn" class="w-full py-3 bg-gradient-to-r from-milaNeonGreen to-emerald-400 text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green mt-2 flex items-center justify-center gap-2 btn-hover-glow">
+              <i class="ph ph-sign-in text-base"></i><span>Entrar no App Mila</span>
+            </button>
+          </form>
+          <form id="formRegister" class="w-full space-y-3 hidden" onsubmit="handleUserAuth(event, 'register')">
+            <div>
+              <label class="text-[10px] text-milaTextMuted ml-1 block mb-1 font-medium">Nome do Aluno</label>
+              <input type="text" id="regName" placeholder="Ex: Alexandre TCC" required minlength="2" class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl py-3 px-4 text-xs text-white placeholder-milaTextMuted/50 focus:border-milaNeonGreen transition-colors">
+            </div>
+            <div>
+              <label class="text-[10px] text-milaTextMuted ml-1 block mb-1 font-medium">E-mail</label>
+              <input type="email" id="regEmail" placeholder="aluno@escola.com" required class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl py-3 px-4 text-xs text-white placeholder-milaTextMuted/50 focus:border-milaNeonGreen transition-colors">
+            </div>
+            <div>
+              <label class="text-[10px] text-milaTextMuted ml-1 block mb-1 font-medium">Senha (mín. 6 caracteres)</label>
+              <input type="password" id="regPassword" placeholder="••••••" required minlength="6" class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl py-3 px-4 text-xs text-white placeholder-milaTextMuted/50 focus:border-milaNeonGreen transition-colors">
+            </div>
+            <button type="submit" id="registerBtn" class="w-full py-3 bg-gradient-to-r from-milaPurple to-milaNeonGreen text-white font-bold text-xs rounded-xl shadow-neon-purple mt-2 flex items-center justify-center gap-2 btn-hover-glow">
+              <i class="ph ph-user-plus text-base"></i><span>Criar Conta</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section id="mila-dashboard" class="mila-screen hidden flex-col space-y-4 pb-20 screen-transition">
+        <div class="flex items-center justify-between pt-1 bg-milaBgCard/40 backdrop-blur-md border border-milaBorder/30 p-3 rounded-2xl">
+          <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('mila-perfil')">
+            <div class="w-12 h-12 rounded-full bg-milaBgDark border-2 border-milaNeonGreen flex items-center justify-center text-milaNeonGreen shadow-neon-green overflow-hidden">
+              <img id="dashAvatarImg" class="w-full h-full object-cover hidden">
+              <i id="dashAvatarIcon" class="ph ph-owl text-2xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 id="userNameDisplay" class="text-sm font-bold text-white">Estudante</h3>
+                <span id="userLevelBadge" class="text-[9px] bg-milaPurple/20 text-milaPurple border border-milaPurple/40 px-2 py-0.5 rounded-full">Nível 1</span>
+                <span id="dashMoodIcon" class="text-lg hidden" title="Humor de hoje"></span>
+              </div>
+              <p id="dashBioDisplay" class="text-[10px] text-milaTextMuted mt-0.5 line-clamp-1">Sua bio aparecerá aqui...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-milaBgCard/80 to-milaBgDark border border-amber-500/30 rounded-2xl p-3 flex items-center justify-between shadow-glass">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 border border-amber-500/30">
+                    <i class="ph ph-fire text-xl animate-pulse"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-white">Sequência de Foco</h4>
+                    <p class="text-[9px] text-milaTextMuted">Mantenha o ritmo diário!</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="text-2xl font-bold text-amber-400 font-mono" id="userStreak">0</span>
+                <span class="text-[9px] text-milaTextMuted uppercase block">Dias</span>
+            </div>
+        </div>
+
+        <div class="bg-milaBgCard/50 backdrop-blur-md border border-milaBorder/50 rounded-2xl p-3">
+          <p class="text-[10px] text-milaTextMuted mb-2 font-medium">Como está seu foco para estudar agora?</p>
+          <div class="flex justify-between gap-2">
+            <button onclick="recordMood('Excelente')" class="flex-1 py-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold rounded-lg hover:bg-emerald-500/20 transition-all btn-hover-glow">🚀 Focado</button>
+            <button onclick="recordMood('Normal')" class="flex-1 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-bold rounded-lg hover:bg-amber-500/20 transition-all btn-hover-glow">😐 Normal</button>
+            <button onclick="recordMood('Cansado')" class="flex-1 py-1.5 bg-rose-500/10 border border-rose-500/30 text-rose-400 text-[10px] font-bold rounded-lg hover:bg-rose-500/20 transition-all btn-hover-glow">💤 Cansado</button>
+          </div>
+        </div>
+
+        <div onclick="navigateTo('mila-pesquisa')" class="bg-milaBgCard/40 backdrop-blur-sm border border-milaBorder/50 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-milaPurple/60 transition-all btn-hover-glow">
+          <div class="flex items-center gap-2 text-xs text-milaTextMuted">
+            <i class="ph ph-magnifying-glass text-milaPurple text-lg"></i>
+            <span class="text-[11px] font-medium">Buscar dúvidas com a IA...</span>
+          </div>
+          <i class="ph ph-caret-right text-xs text-milaPurple"></i>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div onclick="navigateTo('mila-agenda')" class="bg-milaBgCard/50 backdrop-blur-md border border-milaBorder/50 rounded-2xl p-4 flex flex-col justify-between hover:border-milaNeonGreen/50 cursor-pointer h-28 transition-all btn-hover-glow shadow-glass">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <i class="ph ph-calendar-blank text-base"></i>
+            </div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Agenda</h5>
+              <p id="dashTaskCount" class="text-[9px] text-milaTextMuted mt-0.5">0 matérias ativas</p>
+            </div>
+          </div>
+          <div onclick="navigateTo('mila-postura')" class="bg-milaBgCard/50 backdrop-blur-md border border-milaBorder/50 rounded-2xl p-4 flex flex-col justify-between hover:border-milaPurple/50 cursor-pointer h-28 transition-all btn-hover-glow shadow-glass">
+            <div class="w-8 h-8 rounded-lg bg-milaPurple/10 border border-milaPurple/30 flex items-center justify-center text-milaPurple">
+              <i class="ph ph-chart-bar text-base"></i>
+            </div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Sensores IoT</h5>
+              <p class="text-[9px] text-milaNeonGreen font-bold mt-0.5 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-milaNeonGreen animate-pulse"></span> Online</p>
+            </div>
+          </div>
+        </div>
+
+        <div onclick="navigateTo('mila-guia')" class="bg-gradient-to-r from-indigo-900/30 to-milaBgCard/60 backdrop-blur-sm border border-indigo-500/30 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer btn-hover-glow">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-300 border border-indigo-400/30">
+              <i class="ph ph-compass text-lg"></i>
+            </div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Como a MILA Funciona?</h5>
+              <p class="text-[10px] text-milaTextMuted">Tutorial interativo</p>
+            </div>
+          </div>
+          <i class="ph ph-arrow-right text-milaNeonGreen"></i>
+        </div>
+      </section>
+
+      <!-- PERFIL -->
+      <section id="mila-perfil" class="mila-screen hidden flex-col space-y-4 pb-20 screen-transition">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
+            <h3 class="text-sm font-bold text-white">Perfil do Estudante</h3>
+          </div>
+        </div>
+
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-3xl p-5 flex flex-col items-center text-center shadow-glass relative">
+          <div class="relative group">
+            <div class="w-24 h-24 rounded-full bg-milaBgDark border-2 border-milaNeonGreen flex items-center justify-center text-milaNeonGreen text-4xl shadow-neon-green mb-3 overflow-hidden">
+              <img id="profileAvatarImg" class="w-full h-full object-cover hidden">
+              <i id="profileAvatarIcon" class="ph ph-owl"></i>
+            </div>
+            <label class="absolute bottom-2 right-0 bg-milaNeonGreen text-milaBgDark w-8 h-8 rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition-transform">
+              <i class="ph ph-camera text-lg"></i>
+              <input type="file" id="avatarUpload" class="hidden" accept="image/*" onchange="uploadAvatar(event)">
+            </label>
+          </div>
+          
+          <h4 id="profileName" class="text-lg font-bold text-white">Estudante</h4>
+          <p id="profileEmail" class="text-xs text-milaTextMuted mt-1">email@mila.ai</p>
+          
+          <div class="w-full mt-4 bg-milaBgDark/60 p-3 rounded-xl border border-milaBorder/50 text-left">
+            <p class="text-[10px] text-milaTextMuted font-semibold mb-1">Minha Bio:</p>
+            <p id="profileBioText" class="text-xs text-slate-200 italic">"Sem bio definida."</p>
+          </div>
+          
+          <div class="w-full mt-3">
+             <textarea id="profileBioInput" rows="2" placeholder="Escreva sua bio aqui..." class="w-full bg-milaBgDark/80 border border-milaBorder rounded-lg p-2.5 text-xs text-white resize-none focus:border-milaNeonGreen transition-colors"></textarea>
+             <button onclick="saveProfileBio()" class="mt-2 w-full py-2 bg-milaNeonGreen text-milaBgDark text-[10px] font-bold rounded-lg btn-hover-glow">Salvar Bio</button>
+          </div>
+        </div>
+
+        <div class="bg-milaBgCard/50 backdrop-blur-md border border-milaBorder/50 rounded-2xl p-4 shadow-glass">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="text-xs font-bold text-white flex items-center gap-1"><i class="ph ph-calendar-heart text-milaPink"></i> Relatório de Humor</h4>
+            <div class="flex gap-1 items-center">
+                <button onclick="changeMoodMonth(-1)" class="p-1 bg-milaBgDark rounded text-slate-400 hover:text-white btn-hover-glow"><i class="ph ph-caret-left"></i></button>
+                <span id="moodMonthLabel" class="text-[10px] font-bold text-white w-20 text-center uppercase">Outubro 2026</span>
+                <button onclick="changeMoodMonth(1)" class="p-1 bg-milaBgDark rounded text-slate-400 hover:text-white btn-hover-glow"><i class="ph ph-caret-right"></i></button>
+            </div>
+          </div>
+          
+          <div class="flex justify-center gap-3 text-[9px] mb-3 text-milaTextMuted">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Focado</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Normal</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Cansado</span>
+          </div>
+
+          <div id="moodCalendarGrid" class="grid grid-cols-7 gap-1 text-center text-[9px]">
+             <span class="text-milaTextMuted font-bold">D</span><span class="text-milaTextMuted font-bold">S</span><span class="text-milaTextMuted font-bold">T</span><span class="text-milaTextMuted font-bold">Q</span><span class="text-milaTextMuted font-bold">Q</span><span class="text-milaTextMuted font-bold">S</span><span class="text-milaTextMuted font-bold">S</span>
+          </div>
+        </div>
+
+        <div class="bg-milaBgCard/50 backdrop-blur-md border border-milaBorder/50 rounded-2xl p-4 shadow-glass">
+          <h4 class="text-xs font-bold text-white mb-3 flex items-center gap-1"><i class="ph ph-medal text-amber-400"></i> Conquistas</h4>
+          <div class="grid grid-cols-3 gap-2 text-center text-[9px]">
+            <div class="p-2.5 bg-milaBgDark/60 rounded-xl border border-milaNeonGreen/30 flex flex-col items-center gap-1 btn-hover-glow cursor-pointer">
+              <i class="ph ph-trophy text-amber-400 text-2xl"></i>
+              <span class="font-bold text-white">Foco Total</span>
+              <span class="text-milaTextMuted">5h seguidas</span>
+            </div>
+            <div class="p-2.5 bg-milaBgDark/60 rounded-xl border border-milaPurple/30 flex flex-col items-center gap-1 btn-hover-glow cursor-pointer">
+              <i class="ph ph-spine text-milaPurple text-2xl"></i>
+              <span class="font-bold text-white">Postura Mestre</span>
+              <span class="text-milaTextMuted">100% Reto</span>
+            </div>
+            <div class="p-2.5 bg-milaBgDark/60 rounded-xl border border-indigo-500/30 flex flex-col items-center gap-1 btn-hover-glow cursor-pointer">
+              <i class="ph ph-fire text-rose-400 text-2xl"></i>
+              <span class="font-bold text-white">3 Dias Fogo</span>
+              <span class="text-milaTextMuted">Sequência</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="handleLogout()" class="w-full py-3 bg-rose-500/10 text-rose-400 border border-rose-500/30 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-rose-500/20 transition-all btn-hover-glow mt-2">
+          <i class="ph ph-sign-out text-sm"></i> Encerrar Sessão
+        </button>
+      </section>
+
+      <!-- AGENDA -->
+      <section id="mila-agenda" class="mila-screen hidden flex-col space-y-4 pb-20 screen-transition">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
+            <h3 class="text-sm font-bold text-white">Agenda de Estudos</h3>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-milaBgCard/80 to-indigo-950/40 backdrop-blur-md border border-milaPurple/30 rounded-2xl p-4 text-center shadow-glass">
+          <div class="flex justify-between items-center text-[10px] text-milaTextMuted mb-2">
+            <span class="text-milaNeonGreen font-bold flex items-center gap-1"><i class="ph ph-timer"></i> Timer Pomodoro</span>
+            <div class="flex items-center gap-1 bg-milaBgDark/50 rounded-lg p-0.5 border border-milaBorder/50">
+                <button onclick="changePomodoroTime(-5)" class="px-2 py-1 hover:text-white transition-colors">-</button>
+                <span id="pomodoroMode" class="w-14 text-center font-bold text-white">25 min</span>
+                <button onclick="changePomodoroTime(5)" class="px-2 py-1 hover:text-white transition-colors">+</button>
+            </div>
+          </div>
+          <div id="pomodoroDisplay" class="text-4xl font-bold font-mono text-white my-2 tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">25:00</div>
+          <div class="flex justify-center gap-2 mt-3">
+            <button onclick="togglePomodoro()" id="btnPomodoroStart" class="py-2 px-6 bg-milaNeonGreen text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow">Iniciar</button>
+            <button onclick="resetPomodoro()" class="py-2 px-4 bg-milaBgCardSubtle text-slate-300 text-xs font-bold rounded-xl border border-milaBorder btn-hover-glow">Reset</button>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center pt-2">
+          <span class="text-xs font-bold text-white">Suas Matérias</span>
+          <button onclick="openAddTaskModal()" class="text-[11px] text-milaNeonGreen hover:text-white transition-colors flex items-center gap-1 font-semibold btn-hover-glow">
+            <i class="ph ph-plus-circle text-base"></i> Nova
+          </button>
+        </div>
+        <div id="taskListContainer" class="space-y-2"></div>
+
+        <!-- BLOCO DE NOTAS ESTILO BLOG -->
+        <div class="bg-milaBgCard/50 backdrop-blur-md border border-milaBorder/50 rounded-2xl p-5 mt-6 shadow-glass">
+          
+          <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2 border-b border-milaBorder/50 pb-3">
+            <i class="ph ph-pencil-simple-line text-milaNeonGreen text-lg"></i> Criar Nova Anotação
+          </h4>
+          
+          <div class="space-y-4 mb-8 bg-milaBgDark/40 p-4 rounded-xl border border-milaBorder/30">
+            <div>
+              <label class="text-[10px] text-milaTextMuted font-bold uppercase block mb-1">Título</label>
+              <input type="text" id="noteTitleInput" placeholder="Título da sua anotação..." style="background-color: #0b0717; color: white; border-color: #362461;" class="w-full rounded-lg p-3 text-xs focus:border-milaNeonGreen transition-colors outline-none">
+            </div>
+            
+            <div>
+              <label class="text-[10px] text-milaTextMuted font-bold uppercase block mb-1">Conteúdo</label>
+              <textarea id="noteContentInput" rows="4" placeholder="Escreva sua história, dúvida ou resumo..." style="background-color: #0b0717; color: white; border-color: #362461;" class="w-full rounded-lg p-3 text-xs focus:border-milaNeonGreen transition-colors resize-none outline-none"></textarea>
+            </div>
+            
+            <button onclick="addNewNote()" class="w-full py-3 bg-milaNeonGreen text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow uppercase tracking-wider">
+              Postar Anotação
+            </button>
+          </div>
+
+          <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2 border-b border-milaBorder/50 pb-3">
+            <i class="ph ph-notebook text-milaNeonGreen text-lg"></i> Suas Anotações
+          </h4>
+          
+          <div id="notesHistoryList" class="space-y-4">
+            <!-- Os cards serão injetados aqui via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PESQUISA -->
+      <section id="mila-pesquisa" class="mila-screen hidden flex-col space-y-4 pb-20 screen-transition">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
+            <h3 class="text-sm font-bold text-white">Pesquisa Inteligente</h3>
+          </div>
+        </div>
+
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-xl p-2 flex items-center gap-2 shadow-glass">
+          <i class="ph ph-magnifying-glass text-milaNeonGreen text-lg ml-2"></i>
+          <input type="text" id="searchQueryInput" placeholder="Ex: Como funciona a fotossíntese?" class="bg-transparent text-xs text-white flex-1 focus:outline-none placeholder-milaTextMuted/50">
+          <button onclick="goToChat()" class="py-2 px-4 bg-milaNeonGreen text-milaBgDark text-xs font-bold rounded-lg shadow-neon-green btn-hover-glow">Ir para o Chat</button>
+        </div>
+
+        <div>
+          <span class="text-[11px] text-milaTextMuted font-bold mb-2 block">Histórico de Pesquisas</span>
+          <div id="searchHistoryList" class="space-y-2"></div>
+        </div>
+      </section>
+
+      <!-- VOZ -->
+      <section id="mila-voz" class="mila-screen hidden flex-col justify-between py-2 text-center pb-20 screen-transition max-w-md mx-auto">
+        <div class="flex justify-between items-center mb-6">
+          <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
+          <span class="text-[9px] bg-milaBgCardSubtle text-milaPurple px-2.5 py-1 rounded-full border border-milaPurple/30 font-mono">voz real</span>
+        </div>
+
+        <div class="my-auto flex flex-col items-center">
+          <div id="micButton" onclick="toggleVoiceAssistant()" class="w-32 h-32 rounded-full bg-gradient-to-br from-milaNeonGreen to-emerald-500 flex items-center justify-center cursor-pointer shadow-neon-green-lg transition transform active:scale-95 relative">
+            <div class="absolute inset-0 rounded-full border-4 border-white/20 animate-ping opacity-20 hidden" id="micPulseRing"></div>
+            <i class="ph ph-microphone text-5xl text-milaBgDark" id="micIcon"></i>
+          </div>
+          <div id="soundWaveContainer" class="flex items-center justify-center gap-1.5 h-10 mt-6 opacity-30">
+            <div class="w-1.5 bg-milaNeonGreen rounded-full wave-bar h-3"></div>
+            <div class="w-1.5 bg-milaNeonGreen rounded-full wave-bar h-6"></div>
+            <div class="w-1.5 bg-milaNeonGreen rounded-full wave-bar h-8"></div>
+            <div class="w-1.5 bg-milaNeonGreen rounded-full wave-bar h-5"></div>
+            <div class="w-1.5 bg-milaNeonGreen rounded-full wave-bar h-2"></div>
+          </div>
+          <p id="voiceStatusText" class="text-xs text-milaNeonGreen mt-4 font-semibold animate-pulse">Toque para falar com a Mila...</p>
+        </div>
+
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-2xl p-4 text-left shadow-glass mt-6">
+          <p class="text-[10px] text-milaTextMuted mb-1 font-medium">Transcrição:</p>
+          <p id="voiceTranscript" class="text-xs text-slate-200 italic leading-relaxed min-h-[40px]">...</p>
+        </div>
+      </section>
+
+      <!-- GUIA -->
+      <section id="mila-guia" class="mila-screen hidden flex-col space-y-4 pb-20 screen-transition">
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center gap-2">
+            <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
+            <h3 class="text-sm font-bold text-white">Como a MILA Funciona</h3>
+          </div>
+        </div>
+
+        <div class="space-y-4 relative border-l-2 border-milaBorder/50 ml-3 pl-4 text-xs">
+          <div class="relative">
+            <div class="absolute -left-[23px] top-0.5 w-3.5 h-3.5 rounded-full bg-milaNeonGreen shadow-neon-green border-2 border-milaBgDark"></div>
+            <span class="text-[10px] font-bold text-milaNeonGreen uppercase tracking-wider">Passo 01</span>
+            <h4 class="font-bold text-white text-sm mt-0.5">Calibragem do Sensor</h4>
+            <p class="text-[11px] text-milaTextMuted mt-1 leading-relaxed">Mapeia pontos faciais para detectar postura e fadiga.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[23px] top-0.5 w-3.5 h-3.5 rounded-full bg-milaPurple shadow-neon-purple border-2 border-milaBgDark"></div>
+            <span class="text-[10px] font-bold text-milaPurple uppercase tracking-wider">Passo 02</span>
+            <h4 class="font-bold text-white text-sm mt-0.5">Armazenamento Seguro</h4>
+            <p class="text-[11px] text-milaTextMuted mt-1 leading-relaxed">Sua rotina é salva no Firebase de forma segura e vinculada à sua conta.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[23px] top-0.5 w-3.5 h-3.5 rounded-full bg-indigo-400 border-2 border-milaBgDark"></div>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Passo 03</span>
+            <h4 class="font-bold text-white text-sm mt-0.5">Foco Ativo & Pomodoro</h4>
+            <p class="text-[11px] text-milaTextMuted mt-1 leading-relaxed">A IA avisa o momento exato de pausar para descansar.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[23px] top-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-milaBgDark"></div>
+            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Passo 04</span>
+            <h4 class="font-bold text-white text-sm mt-0.5">Gamificação</h4>
+            <p class="text-[11px] text-milaTextMuted mt-1 leading-relaxed">Ganhe XP, suba de nível e mantenha sua sequência.</p>
+          </div>
+        </div>
+
+        <button onclick="navigateTo('mila-dashboard')" class="w-full py-3 bg-milaNeonGreen text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow mt-4">
+          Entendido, Voltar
+        </button>
+      </section>
+
+      <!-- SENSORES -->
+      <section id="mila-postura" class="mila-screen hidden flex-col space-y-4 pb-20 screen-transition">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
+            <h3 class="text-sm font-bold text-white">Ergonomia & Sensores</h3>
+          </div>
+          <span class="text-[9px] bg-milaBgCardSubtle text-milaPurple px-2.5 py-1 rounded-full border border-milaPurple/30 font-mono">ESP32</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                <i class="ph ph-hand-pressing text-sm"></i>
+              </div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Força</span>
+            </div>
+            <p class="text-2xl font-bold text-white font-mono" id="sensorForca">--</p>
+          </div>
+
+          <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <i class="ph ph-person-arms-spread text-sm"></i>
+              </div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Postura</span>
+            </div>
+            <p class="text-2xl font-bold text-white font-mono" id="sensorPostura">--</p>
+          </div>
+
+          <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-md bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                <i class="ph ph-sun text-sm"></i>
+              </div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Luminosidade</span>
+            </div>
+            <p class="text-2xl font-bold text-white font-mono" id="sensorLuz">--</p>
+          </div>
+
+          <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-md bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                <i class="ph ph-thermometer-hot text-sm"></i>
+              </div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Temperatura</span>
+            </div>
+            <p class="text-2xl font-bold text-white font-mono" id="sensorTemp">-- °C</p>
+          </div>
+
+          <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between col-span-2">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-md bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+                <i class="ph ph-drop text-sm"></i>
+              </div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Umidade</span>
+            </div>
+            <p class="text-2xl font-bold text-white font-mono" id="sensorUmid">-- %</p>
+          </div>
+        </div>
+
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-2xl p-5 flex flex-col items-center justify-center h-32 shadow-glass mt-2">
+          <span class="text-[10px] text-milaTextMuted uppercase tracking-widest mb-3 flex items-center gap-2"><i class="ph ph-wifi-high"></i> Conexão com a Mesa</span>
+          <div id="sensorStatus" class="text-emerald-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-milaNeonGreen/30 shadow-neon-green animate-pulse">Aguardando conexão...</div>
+        </div>
+
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-2xl p-4 shadow-glass">
+          <h4 class="text-xs font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-chart-line-up text-milaNeonGreen text-base"></i> Histórico de Força (7 dias)</h4>
+          <div id="sensorChart" class="h-36 flex items-end justify-between gap-2 px-1 pt-2 border-b border-milaBorder/40 pb-1">
+            <div class="text-center w-full text-milaTextMuted text-[10px] pt-10">Carregando dados...</div>
+          </div>
+        </div>
+
+        <!-- CÂMERA DA MILA -->
+        <div class="relative w-full h-48 bg-black/50 rounded-2xl overflow-hidden border border-milaBorder flex items-center justify-center shadow-glass mt-2">
+          <video id="postureWebcam" class="w-full h-full object-cover hidden" autoplay playsinline muted></video>
+          <div id="camPlaceholder" class="flex flex-col items-center justify-center p-4 text-center">
+            <i class="ph ph-camera text-3xl text-milaNeonGreen mb-2 animate-pulse"></i>
+            <p class="text-[11px] text-slate-200 font-medium">Visão da Mila</p>
+            <button onclick="startPostureCamera()" class="mt-3 py-1.5 px-4 bg-milaNeonGreen/20 border border-milaNeonGreen/50 text-milaNeonGreen text-[10px] font-bold rounded-lg btn-hover-glow">Ativar Câmera</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAIS -->
+  <div id="addTaskModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-milaBgCard border border-milaBorder/60 rounded-2xl w-full max-w-sm p-5 space-y-4 fade-in shadow-glass">
+      <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="ph ph-plus-circle text-milaNeonGreen"></i> <span id="modalTaskTitle">Nova Matéria</span></h3>
+      <input type="hidden" id="editTaskId">
+      <input type="text" id="newTaskTitle" placeholder="Ex: Cálculo Diferencial" class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl p-3 text-xs text-white focus:border-milaNeonGreen transition-colors">
+      <input type="text" id="newTaskTime" placeholder="Ex: 14:00 - 15:30" class="w-full bg-milaBgDark/80 border border-milaBorder rounded-xl p-3 text-xs text-white focus:border-milaNeonGreen transition-colors">
+      <div class="flex gap-2 pt-2">
+        <button onclick="saveNewTask()" class="flex-1 py-2.5 bg-milaNeonGreen text-milaBgDark text-xs font-bold rounded-xl btn-hover-glow">Salvar</button>
+        <button onclick="closeAddTaskModal()" class="flex-1 py-2.5 bg-milaBgCardSubtle text-slate-300 text-xs font-bold rounded-xl btn-hover-glow">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="editNoteModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-milaBgCard border border-milaBorder/60 rounded-2xl w-full max-w-sm p-5 space-y-4 fade-in shadow-glass">
+      <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="ph ph-pencil-simple text-milaNeonGreen"></i> Editar Postagem</h3>
+      <input type="hidden" id="editNoteId">
+      <input type="text" id="editNoteTitle" placeholder="Título" style="background-color: #0b0717; color: white;" class="w-full border border-milaBorder rounded-lg p-2.5 text-xs focus:border-milaNeonGreen">
+      <textarea id="editNoteText" rows="4" placeholder="Conteúdo" style="background-color: #0b0717; color: white;" class="w-full border border-milaBorder rounded-lg p-2.5 text-xs focus:border-milaNeonGreen resize-none"></textarea>
+      <div class="flex gap-2 pt-2">
+        <button onclick="updateNote()" class="flex-1 py-2.5 bg-milaNeonGreen text-milaBgDark text-xs font-bold rounded-xl btn-hover-glow">Salvar</button>
+        <button onclick="document.getElementById('editNoteModal').classList.add('hidden')" class="flex-1 py-2.5 bg-milaBgCardSubtle text-slate-300 text-xs font-bold rounded-xl btn-hover-glow">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-milaNeonGreen text-milaBgDark px-5 py-3 rounded-xl text-xs font-bold shadow-neon-green transition transform translate-y-20 opacity-0 z-50">Mensagem</div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
