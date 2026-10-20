@@ -1,2 +1,0 @@
-// config.js
-window.GEMINI_API_KEY = "AQ.Ab8RN6IDWTtW2QC6gQ37WG91WGk80X5ZeadmOYNaJQRVXvQdeA";

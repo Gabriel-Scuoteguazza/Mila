@@ -1,8 +1,6 @@
 // ia-gemini.js
-
-// Obtém a chave definida no window.GEMINI_API_KEY
-const API_KEY = window.GEMINI_API_KEY || "";
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+const GEMINI_API_KEY = "AQ.Ab8RN6IDWTtW2QC6gQ37WG91WGk80X5ZeadmOYNaJQRVXvQdeA"; 
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
 const SYSTEM_PROMPT = `
 Você é a "Corujinha Mila", uma assistente de estudos inteligente e amigável integrada ao app MilApp.
