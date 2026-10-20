@@ -1,4 +1,5 @@
 // ia-gemini.js
+const API_KEY = window.GEMINI_API_KEY;
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
 const SYSTEM_PROMPT = `
