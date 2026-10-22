@@ -22,7 +22,6 @@ body.light-mode {
 
     h3 {
         --text: #fff;
-
     }
 }
 
@@ -49,7 +48,6 @@ body.light-mode .main-content {
     cursor: pointer;
 }
 
-
 header {
     display: flex;
     justify-content: space-between;
@@ -61,8 +59,6 @@ header {
     width: 100%;
     z-index: 1000;
     transition: background-color .25s ease, backdrop-filter .25s ease;
-
-
 
     &.is-scrolled {
         background-color: var(--header-bg);
@@ -83,7 +79,6 @@ header {
             gap: 4rem;
 
             li {
-
                 a {
                     text-decoration: none;
                     color: var(--text);
@@ -91,7 +86,6 @@ header {
                     font-weight: 700;
                     font-size: 1.2rem;
                 }
-
             }
         }
     }
@@ -99,13 +93,11 @@ header {
 
 main {
     padding: 1rem 4rem;
+    padding-bottom: 5rem;
 
     section {
         width: 100%;
     }
-
-    padding-bottom: 5rem;
-
 }
 
 .comeco {
@@ -122,24 +114,20 @@ main {
     display: block;
 }
 
-
 .icones {
     position: absolute;
     top: 20px;
     left: 20px;
     right: 20px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-
 .icones-esquerda {
     display: flex;
     gap: 15px;
 }
-
 
 .icones img {
     width: 100%;
@@ -150,8 +138,6 @@ main {
 .active {
     color: #00ff88;
 }
-
-
 
 .menu-backdrop {
     position: fixed;
@@ -240,9 +226,23 @@ main {
     letter-spacing: 1px;
 }
 
+.header>.icone {
+    position: absolute;
+    top: 90px;
+    right: 80px;
+    z-index: 10;
+}
+
+
+/* ==================================================== */
+/* AJUSTES PARA CELULAR (MOBILE)                        */
+/* ==================================================== */
 @media (max-width: 768px) {
     header {
         padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .menu-desktop {
@@ -251,13 +251,27 @@ main {
 
     .menu-hamburguer {
         display: flex;
+        order: 3; /* Menu na direita */
     }
-}
 
+    /* CONSERTANDO O BOTÃO DE TEMA NO MOBILE */
+    .icones {
+        position: relative !important; /* Tira o absoluto que fazia flutuar */
+        top: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        width: auto !important;
+        margin: 0 15px 0 0 !important;
+        order: 2; /* Fica entre o logo e o menu */
+        justify-content: flex-end;
+    }
 
-.header>.icone {
-    position: absolute;
-    top: 90px;
-    right: 80px;
-    z-index: 10;
+    /* Caso o botão esteja solto na header com a classe .icone */
+    .header > .icone {
+        position: relative;
+        top: 0;
+        right: 0;
+        order: 2;
+        margin-right: 15px;
+    }
 }

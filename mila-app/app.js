@@ -409,7 +409,7 @@ window.deleteNote = async function(id) {
     renderNotes();
 };
 
-// --- SENSORES E GRÁFICOS CARROSSEL ---
+// --- SENSORES E GRÁFICOS CARROSSEL (CORRIGIDO) ---
 let sensorDataCache = []; 
 let currentChartIndex = 0; 
 
@@ -447,24 +447,27 @@ function getCameraLabel(val) {
 }
 
 function loadSensors() {
+    // 1. Dados Atuais (Tempo Real)
     onValue(ref(database, 'status_atual_postura'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
             const posturaVal = data.postura || data.media_postura || 0;
+            const estresseVal = data.estresse || data.media_estresse || 0;
+            const forcaVal = data.forca || data.media_forca || 0;
+            const statusCam = data.foco || data.status_camera;
+
             if(document.getElementById('sensorPostura')) {
                 document.getElementById('sensorPostura').innerText = posturaVal + '%';
-                document.getElementById('sensorPosturaLabel').innerText = getPosturaLabel(posturaVal);
+                document.getElementById('sensorPosturaLabel').innerText = getPosturaLabel(parseFloat(posturaVal));
             }
-
-            const estresseVal = data.estresse || data.media_estresse || 0;
             if(document.getElementById('sensorEstresse')) {
                 document.getElementById('sensorEstresse').innerText = estresseVal + '%';
-                document.getElementById('sensorEstresseLabel').innerText = getEstresseLabel(estresseVal);
+                document.getElementById('sensorEstresseLabel').innerText = getEstresseLabel(parseFloat(estresseVal));
+            }
+            if(document.getElementById('sensorForca')) {
+                document.getElementById('sensorForca').innerText = forcaVal;
             }
 
-            if(document.getElementById('sensorForca')) document.getElementById('sensorForca').innerText = data.forca || '--';
-
-            const statusCam = data.foco || data.status_camera;
             if (statusCam) {
                 const labelEl = document.getElementById('statusCameraLabel');
                 if (labelEl) {
@@ -477,7 +480,8 @@ function loadSensors() {
         }
     });
 
-    onValue(ref(database, 'resumos_diarios_postura'), (snapshot) => {
+    // 2. Histórico Diário (Gráficos)
+    const processHistory = (snapshot) => {
         const data = snapshot.val();
         const statusEl = document.getElementById('sensorStatus');
 
@@ -486,13 +490,14 @@ function loadSensors() {
             if (dates.length > 0) {
                 const latest = data[dates[0]];
 
-                const luzVal = latest.media_luminosidade || 0;
+                const luzVal = latest.media_luminosidade || latest.luminosidade || 0;
                 if(document.getElementById('sensorLuz')) {
                     document.getElementById('sensorLuz').innerText = luzVal + '%';
-                    document.getElementById('sensorLuzLabel').innerText = getLuzLabel(luzVal);
+                    document.getElementById('sensorLuzLabel').innerText = getLuzLabel(parseFloat(luzVal));
                 }
-
-                if(document.getElementById('sensorTemp')) document.getElementById('sensorTemp').innerText = (latest.media_temperatura_c || '--') + ' °C';
+                if(document.getElementById('sensorTemp')) {
+                    document.getElementById('sensorTemp').innerText = (latest.media_temperatura_c || latest.temperatura || '--') + ' °C';
+                }
 
                 if(statusEl) {
                     statusEl.innerText = "Mesa Conectada";
@@ -514,7 +519,10 @@ function loadSensors() {
                 statusEl.className = "text-amber-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-amber-500/30";
             }
         }
-    });
+    };
+
+    onValue(ref(database, 'resumos_diarios'), processHistory);
+    onValue(ref(database, 'resumos_diarios_postura'), processHistory);
 }
 
 window.changeChart = function(direction) {
@@ -549,11 +557,22 @@ function renderChart() {
             return;
         }
 
-        const maxVal = Math.max(...sensorDataCache.map(d => parseFloat(d[config.key]) || 0), 100);
+        const valores = sensorDataCache.map(d => {
+            let v = d[config.key] || d[config.key.replace('media_', '')]; 
+            if (typeof v === 'string') {
+                v = parseFloat(v.replace('%', '').replace('°C', '').replace(',', '.')); 
+            }
+            return isNaN(v) ? 0 : v;
+        });
 
-        sensorDataCache.forEach(dayData => {
-            const val = parseFloat(dayData[config.key]) || 0;
-            const heightPercent = Math.max((val / maxVal) * 100, 5); 
+        const maxVal = Math.max(...valores, 1); 
+
+        sensorDataCache.forEach((dayData, index) => {
+            const val = valores[index];
+
+            let heightPercent = (val / maxVal) * 100;
+            if (heightPercent > 100) heightPercent = 100;
+            if (heightPercent < 5) heightPercent = 5;
 
             chartEl.innerHTML += `
                 <div class="flex-1 flex flex-col items-center justify-end h-full group relative">
@@ -621,25 +640,19 @@ window.gerarRelatorioPDF = function() {
     showToast('✅ Relatório baixado!');
 };
 
-// --- CÂMERA (VERSÃO CORRIGIDA E À PROVA DE FALHAS) ---
+// --- CÂMERA ---
 window.startPostureCamera = async function() {
     const video = document.getElementById('postureWebcam'); 
     const placeholder = document.getElementById('camPlaceholder');
 
-    // 1. Verifica se o navegador suporta a API
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         return showToast('❌ Seu navegador não suporta acesso à câmera.');
     }
 
     try { 
-        // 2. Pede a câmera com configurações explícitas para evitar erros
         const constraints = { 
-            video: { 
-                facingMode: "user", // Pede a câmera frontal
-                width: { ideal: 640 }, 
-                height: { ideal: 480 } 
-            },
-            audio: false // Não precisa de áudio aqui
+            video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } },
+            audio: false 
         };
 
         const stream = await navigator.mediaDevices.getUserMedia(constraints); 
@@ -647,36 +660,27 @@ window.startPostureCamera = async function() {
         if (video) {
             video.srcObject = stream; 
             video.classList.remove('hidden'); 
-
-            // Aguarda o vídeo carregar para dar play
-            video.onloadedmetadata = () => {
-                video.play();
-            };
+            video.onloadedmetadata = () => { video.play(); };
         }
 
         if (placeholder) placeholder.classList.add('hidden'); 
-
         showToast('📸 Câmera ativada com sucesso!');
 
-        // Atualiza o status no banco (opcional, mas ajuda)
         if (currentUser) {
             update(ref(database, `usuarios/${currentUser.uid}/user`), { cameraStatus: 'Ativa' });
         }
 
     } catch (err) { 
-        // 3. Log detalhado para sabermos exatamente o que o navegador bloqueou
         console.error("Erro detalhado da câmera:", err.name, err.message);
-
         let msg = '📷 Câmera indisponível.';
-        if (err.name === 'NotAllowedError') msg = '📷 Permissão negada. Clique no cadeado na barra de endereços e permita a câmera.';
-        if (err.name === 'NotFoundError') msg = '📷 Nenhuma câmera encontrada no dispositivo.';
-        if (err.name === 'NotReadableError') msg = '📷 A câmera está sendo usada por outro aplicativo.';
-
+        if (err.name === 'NotAllowedError') msg = '📷 Permissão negada. Verifique o cadeado na barra de endereços.';
+        if (err.name === 'NotFoundError') msg = '📷 Nenhuma câmera encontrada.';
+        if (err.name === 'NotReadableError') msg = '📷 A câmera está em uso por outro app.';
         showToast(msg); 
     }
 };
 
-// --- MICROFONE (AUTO-ENVIO ATIVADO) ---
+// --- MICROFONE ---
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -693,7 +697,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         }
         const ringEl = document.getElementById('micPulseRing');
         if(ringEl) ringEl.classList.remove('hidden');
-
         const waveEl = document.getElementById('soundWaveContainer');
         if(waveEl) waveEl.classList.remove('opacity-30');
     };
@@ -702,10 +705,8 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const text = event.results[0][0].transcript;
         const transcriptEl = document.getElementById('voiceTranscript');
         if(transcriptEl) transcriptEl.innerText = `"${text}"`;
-
         showToast('✅ Áudio capturado! Abrindo chat...');
 
-        // Redireciona com o parâmetro &autoSend=true
         setTimeout(() => {
             window.location.href = `chat.html?q=${encodeURIComponent(text)}&autoSend=true`;
         }, 1500);
@@ -726,7 +727,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         }
         const ringEl = document.getElementById('micPulseRing');
         if(ringEl) ringEl.classList.add('hidden');
-
         const waveEl = document.getElementById('soundWaveContainer');
         if(waveEl) waveEl.classList.add('opacity-30');
     };
@@ -734,8 +734,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 
 window.toggleVoiceAssistant = () => {
     if (!recognition) return showToast('Seu navegador não suporta gravação de voz.');
-
-    // Pede permissão do microfone antes de iniciar
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(() => {
             if (isListening) {
