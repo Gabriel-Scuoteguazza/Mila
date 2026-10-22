@@ -1,5 +1,5 @@
 // chat.js - Versão Definitiva
-const GEMINI_API_KEY; 
+const GEMINI_API_KEY = "AQ.Ab8RN6JIQph2mvPkU7vqB7Kg5nDkOwY5mUuauFzBr5NkOyZGiA"; 
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 const SYSTEM_PROMPT = `
