@@ -621,17 +621,58 @@ window.gerarRelatorioPDF = function() {
     showToast('✅ Relatório baixado!');
 };
 
-// --- CÂMERA ---
+// --- CÂMERA (VERSÃO CORRIGIDA E À PROVA DE FALHAS) ---
 window.startPostureCamera = async function() {
-    const video = document.getElementById('postureWebcam'); const placeholder = document.getElementById('camPlaceholder');
+    const video = document.getElementById('postureWebcam'); 
+    const placeholder = document.getElementById('camPlaceholder');
+
+    // 1. Verifica se o navegador suporta a API
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        return showToast('❌ Seu navegador não suporta acesso à câmera.');
+    }
+
     try { 
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true }); 
-        video.srcObject = stream; 
-        video.classList.remove('hidden'); 
-        if(placeholder) placeholder.classList.add('hidden'); 
-    } 
-    catch (err) { 
-        showToast('📷 Câmera indisponível ou permissão negada.'); 
+        // 2. Pede a câmera com configurações explícitas para evitar erros
+        const constraints = { 
+            video: { 
+                facingMode: "user", // Pede a câmera frontal
+                width: { ideal: 640 }, 
+                height: { ideal: 480 } 
+            },
+            audio: false // Não precisa de áudio aqui
+        };
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints); 
+
+        if (video) {
+            video.srcObject = stream; 
+            video.classList.remove('hidden'); 
+
+            // Aguarda o vídeo carregar para dar play
+            video.onloadedmetadata = () => {
+                video.play();
+            };
+        }
+
+        if (placeholder) placeholder.classList.add('hidden'); 
+
+        showToast('📸 Câmera ativada com sucesso!');
+
+        // Atualiza o status no banco (opcional, mas ajuda)
+        if (currentUser) {
+            update(ref(database, `usuarios/${currentUser.uid}/user`), { cameraStatus: 'Ativa' });
+        }
+
+    } catch (err) { 
+        // 3. Log detalhado para sabermos exatamente o que o navegador bloqueou
+        console.error("Erro detalhado da câmera:", err.name, err.message);
+
+        let msg = '📷 Câmera indisponível.';
+        if (err.name === 'NotAllowedError') msg = '📷 Permissão negada. Clique no cadeado na barra de endereços e permita a câmera.';
+        if (err.name === 'NotFoundError') msg = '📷 Nenhuma câmera encontrada no dispositivo.';
+        if (err.name === 'NotReadableError') msg = '📷 A câmera está sendo usada por outro aplicativo.';
+
+        showToast(msg); 
     }
 };
 
