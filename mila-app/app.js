@@ -409,7 +409,7 @@ window.deleteNote = async function(id) {
     renderNotes();
 };
 
-// --- SENSORES E GRÁFICOS CARROSSEL (CORRIGIDO) ---
+// --- SENSORES E GRÁFICOS CARROSSEL ---
 let sensorDataCache = []; 
 let currentChartIndex = 0; 
 
@@ -447,7 +447,7 @@ function getCameraLabel(val) {
 }
 
 function loadSensors() {
-    // 1. Dados Atuais (Tempo Real)
+    // 1. DADOS EM TEMPO REAL (Status Atual)
     onValue(ref(database, 'status_atual_postura'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -480,8 +480,8 @@ function loadSensors() {
         }
     });
 
-    // 2. Histórico Diário (Gráficos)
-    const processHistory = (snapshot) => {
+    // 2. HISTÓRICO DIÁRIO (Gráficos e Cards de Luz/Temp)
+    onValue(ref(database, 'resumos_diarios'), (snapshot) => {
         const data = snapshot.val();
         const statusEl = document.getElementById('sensorStatus');
 
@@ -490,6 +490,7 @@ function loadSensors() {
             if (dates.length > 0) {
                 const latest = data[dates[0]];
 
+                // Atualiza os cards de Luz e Temperatura
                 const luzVal = latest.media_luminosidade || latest.luminosidade || 0;
                 if(document.getElementById('sensorLuz')) {
                     document.getElementById('sensorLuz').innerText = luzVal + '%';
@@ -504,6 +505,7 @@ function loadSensors() {
                     statusEl.className = "text-emerald-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-milaNeonGreen/30 shadow-neon-green";
                 }
 
+                // Alimenta o gráfico
                 sensorDataCache = dates.slice(0, 7).reverse().map(date => {
                     return { 
                         date: date.split('-').slice(1).join('/'), 
@@ -519,10 +521,7 @@ function loadSensors() {
                 statusEl.className = "text-amber-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-amber-500/30";
             }
         }
-    };
-
-    onValue(ref(database, 'resumos_diarios'), processHistory);
-    onValue(ref(database, 'resumos_diarios_postura'), processHistory);
+    });
 }
 
 window.changeChart = function(direction) {
@@ -557,6 +556,7 @@ function renderChart() {
             return;
         }
 
+        // Converte os valores para número e encontra o máximo real
         const valores = sensorDataCache.map(d => {
             let v = d[config.key] || d[config.key.replace('media_', '')]; 
             if (typeof v === 'string') {
