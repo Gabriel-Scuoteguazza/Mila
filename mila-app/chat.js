@@ -64,7 +64,10 @@ window.startNewChat = function() {
             </div>
         </div>
     `;
-    if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+    if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById('sidebar');
+        if(sidebar) sidebar.classList.remove('open');
+    }
 };
 
 function loadChat(chatId) {
@@ -73,7 +76,10 @@ function loadChat(chatId) {
     currentChatId = chatId;
     chatMessages.innerHTML = '';
     chat.messages.forEach(msg => appendMessageToDOM(msg.role === 'user' ? 'user' : 'ai', msg.text, false));
-    if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+    if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById('sidebar');
+        if(sidebar) sidebar.classList.remove('open');
+    }
 }
 
 // --- MENSAGENS ---
@@ -154,34 +160,86 @@ async function sendMessage() {
     }
 }
 
+// --- EXPONDO FUNÇÕES GLOBALMENTE (Para funcionar no autoSend) ---
+window.sendMessage = async function() {
+    const userText = chatInput.value.trim();
+    if (!userText) return;
+
+    chatInput.value = '';
+    sendBtn.disabled = true;
+
+    appendMessageToDOM('user', userText, true);
+    showLoading();
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [
+                    { role: "user", parts: [{ text: SYSTEM_PROMPT + "\n\nPergunta do Aluno: " + userText }] }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            console.error("Erro da API:", err);
+            throw new Error(err.error?.message || "Falha na API");
+        }
+
+        const data = await response.json();
+        const aiText = data.candidates[0].content.parts[0].text;
+
+        document.getElementById('loading-msg').remove();
+        appendMessageToDOM('ai', aiText, true);
+
+    } catch (error) {
+        console.error("Erro na IA:", error);
+        document.getElementById('loading-msg').remove();
+        appendMessageToDOM('ai', "Erro: " + error.message, true);
+    } finally {
+        sendBtn.disabled = false;
+        chatInput.focus();
+    }
+};
+
 // --- INICIALIZAÇÃO E VERIFICAÇÃO DA URL ---
 document.addEventListener('DOMContentLoaded', () => {
     loadHistoryFromStorage();
 
-    // Verifica se há uma pergunta na URL (vinda do microfone ou pesquisa)
+    // Verifica se há parâmetros na URL
     const urlParams = new URLSearchParams(window.location.search);
     const queryParam = urlParams.get('q');
+    const autoSend = urlParams.get('autoSend');
 
     if (queryParam) {
-        // Se veio algo, cria um chat novo e preenche
+        // Cria um chat novo do zero
         window.startNewChat(); 
 
-        // Preenche o input
         if(chatInput) {
             chatInput.value = queryParam;
-            chatInput.focus();
 
-            // Feedback visual
-            if(window.showToast) window.showToast('🎤 Texto transcrito! Pressione Enter para enviar.');
+            // Se a URL tiver autoSend=true, dispara a mensagem
+            if (autoSend === 'true') {
+                if(window.showToast) window.showToast('🤖 Enviando para a Mila...');
+
+                // Aumentei para 1.5s para garantir que o DOM carregou no Replit
+                setTimeout(() => {
+                    window.sendMessage(); // Chamando a função global
+                }, 1500);
+            } else {
+                chatInput.focus();
+                if(window.showToast) window.showToast('🎤 Texto transcrito! Pressione Enter para enviar.');
+            }
         }
 
-        // Limpa a URL para não recarregar a pergunta se o usuário der F5
+        // Limpa a URL após executar
         window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-        // Se não veio nada, só carrega a tela inicial normal
         window.startNewChat();
     }
 });
 
-sendBtn.addEventListener('click', sendMessage);
-chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+sendBtn.addEventListener('click', window.sendMessage);
+chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') window.sendMessage(); });

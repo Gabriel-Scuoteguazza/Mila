@@ -10,10 +10,14 @@ A static multi-page website in Brazilian Portuguese presenting the **Mila** smar
 ## Running
 
 ```
-npx serve . -p 5000 -s
+npx --yes serve . -p 5000 --no-clipboard --no-port-switching
 ```
 
 Workflow: **Start application** — serves the site on port 5000.
+
+`serve.json` preserves `.html` URLs and their query parameters so questions sent
+to `mila-app/chat.html?q=...&autoSend=true` reach the chat unchanged. This is a
+multi-page site: do not enable the single-page (`-s`) fallback.
 
 ## User preferences
 

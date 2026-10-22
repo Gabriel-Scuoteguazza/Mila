@@ -299,7 +299,7 @@ window.deleteTask = async function(id) {
     renderTasks();
 };
 
-// --- CRUD NOTAS (BLOG) - VERSÃO CORRIGIDA ---
+// --- CRUD NOTAS (BLOG) ---
 window.addNewNote = async function() {
     const titleInput = document.getElementById('noteTitleInput');
     const contentInput = document.getElementById('noteContentInput');
@@ -310,7 +310,6 @@ window.addNewNote = async function() {
     if (!title || !content) return showToast('⚠️ Preencha o título e o conteúdo.');
 
     try {
-        const notesRef = ref(database, `usuarios/${currentUser.uid}/notes`);
         const newNoteId = Date.now().toString();
         const newNote = { id: newNoteId, title: title, content: content, date: new Date().toLocaleDateString('pt-BR') };
 
@@ -410,11 +409,76 @@ window.deleteNote = async function(id) {
     renderNotes();
 };
 
-// --- SENSORES ---
+// --- SENSORES E GRÁFICOS CARROSSEL ---
+let sensorDataCache = []; 
+let currentChartIndex = 0; 
+
+const chartConfigs = [
+    { key: 'media_postura', label: 'Postura', icon: 'ph-person-arms-spread', color: 'bg-emerald-400', unit: '%' },
+    { key: 'media_luminosidade', label: 'Luminosidade', icon: 'ph-sun', color: 'bg-amber-400', unit: '%' },
+    { key: 'media_estresse', label: 'Estresse', icon: 'ph-brain', color: 'bg-rose-400', unit: '%' },
+    { key: 'media_forca', label: 'Força', icon: 'ph-hand-pressing', color: 'bg-blue-400', unit: '' },
+    { key: 'media_temperatura_c', label: 'Temperatura', icon: 'ph-thermometer-hot', color: 'bg-orange-400', unit: '°C' }
+];
+
+function getPosturaLabel(val) {
+    if (val <= 40) return "Incorreta / Ruim";
+    if (val <= 79) return "Atenção / Normal";
+    return "Perfeita / Bom";
+}
+
+function getLuzLabel(val) {
+    if (val <= 30) return "Escuro / Ruim";
+    if (val <= 70) return "Adequado / Normal";
+    return "Muito Claro / Ótimo";
+}
+
+function getEstresseLabel(val) {
+    if (val <= 30) return "Calmo / Relaxado";
+    if (val <= 70) return "Moderado / Atenção";
+    return "Alerta / Estressado";
+}
+
+function getCameraLabel(val) {
+    if (val == 1) return "Atento / Focado";
+    if (val == 2) return "Distraído / Celular";
+    if (val == 3) return "Ausente / Fora";
+    return "Desconhecido";
+}
+
 function loadSensors() {
-    onValue(ref(database, 'resumos_diarios'), (snapshot) => {
+    onValue(ref(database, 'status_atual_postura'), (snapshot) => {
         const data = snapshot.val();
-        const chartEl = document.getElementById('sensorChart');
+        if (data) {
+            const posturaVal = data.postura || data.media_postura || 0;
+            if(document.getElementById('sensorPostura')) {
+                document.getElementById('sensorPostura').innerText = posturaVal + '%';
+                document.getElementById('sensorPosturaLabel').innerText = getPosturaLabel(posturaVal);
+            }
+
+            const estresseVal = data.estresse || data.media_estresse || 0;
+            if(document.getElementById('sensorEstresse')) {
+                document.getElementById('sensorEstresse').innerText = estresseVal + '%';
+                document.getElementById('sensorEstresseLabel').innerText = getEstresseLabel(estresseVal);
+            }
+
+            if(document.getElementById('sensorForca')) document.getElementById('sensorForca').innerText = data.forca || '--';
+
+            const statusCam = data.foco || data.status_camera;
+            if (statusCam) {
+                const labelEl = document.getElementById('statusCameraLabel');
+                if (labelEl) {
+                    labelEl.innerText = getCameraLabel(statusCam);
+                    if (statusCam == 1) labelEl.className = "text-xs font-bold text-emerald-400 px-3 py-1 bg-emerald-500/20 rounded-lg border border-emerald-500/30";
+                    else if (statusCam == 2) labelEl.className = "text-xs font-bold text-amber-400 px-3 py-1 bg-amber-500/20 rounded-lg border border-amber-500/30";
+                    else if (statusCam == 3) labelEl.className = "text-xs font-bold text-rose-400 px-3 py-1 bg-rose-500/20 rounded-lg border border-rose-500/30";
+                }
+            }
+        }
+    });
+
+    onValue(ref(database, 'resumos_diarios_postura'), (snapshot) => {
+        const data = snapshot.val();
         const statusEl = document.getElementById('sensorStatus');
 
         if (data) {
@@ -422,37 +486,156 @@ function loadSensors() {
             if (dates.length > 0) {
                 const latest = data[dates[0]];
 
-                document.getElementById('sensorForca').innerText = latest.media_forca || '--';
-                document.getElementById('sensorLuz').innerText = latest.media_luminosidade || '--';
-                document.getElementById('sensorTemp').innerText = (latest.media_temperatura_c || '--') + ' °C';
-                document.getElementById('sensorUmid').innerText = (latest.media_umidade_pct || '--') + ' %';
+                const luzVal = latest.media_luminosidade || 0;
+                if(document.getElementById('sensorLuz')) {
+                    document.getElementById('sensorLuz').innerText = luzVal + '%';
+                    document.getElementById('sensorLuzLabel').innerText = getLuzLabel(luzVal);
+                }
 
-                document.getElementById('sensorPostura').innerText = latest.media_postura ? latest.media_postura + '°' : '--';
+                if(document.getElementById('sensorTemp')) document.getElementById('sensorTemp').innerText = (latest.media_temperatura_c || '--') + ' °C';
 
-                statusEl.innerText = latest.presenca_recente ? "Mesa Ativa" : "Mesa Ausente";
-                statusEl.className = latest.presenca_recente ? "text-emerald-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-milaNeonGreen/30 shadow-neon-green" : "text-rose-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-rose-500/30";
+                if(statusEl) {
+                    statusEl.innerText = "Mesa Conectada";
+                    statusEl.className = "text-emerald-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-milaNeonGreen/30 shadow-neon-green";
+                }
 
-                chartEl.innerHTML = '';
-                dates.slice(0, 7).reverse().forEach(date => {
-                    const dayData = data[date];
-                    const valorBase = dayData.media_forca || 0;
-                    const heightPercent = Math.min((valorBase / 1000) * 100, 100); 
-
-                    chartEl.innerHTML += `
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative">
-                            <div class="w-full bg-milaNeonGreen rounded-t opacity-80 hover:opacity-100 transition-all" style="height: ${heightPercent}%">
-                                <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] bg-milaBgCard text-white px-1 rounded opacity-0 group-hover:opacity-100">${valorBase}</span>
-                            </div>
-                            <span class="text-[7px] text-milaTextMuted mt-1">${date.split('-').slice(1).join('/')}</span>
-                        </div>
-                    `;
+                sensorDataCache = dates.slice(0, 7).reverse().map(date => {
+                    return { 
+                        date: date.split('-').slice(1).join('/'), 
+                        ...data[date] 
+                    };
                 });
+
+                renderChart();
+            }
+        } else {
+            if(statusEl) {
+                statusEl.innerText = "Aguardando dados...";
+                statusEl.className = "text-amber-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-amber-500/30";
             }
         }
     });
 }
 
-// --- MICROFONE ---
+window.changeChart = function(direction) {
+    currentChartIndex += direction;
+    if (currentChartIndex < 0) currentChartIndex = chartConfigs.length - 1;
+    if (currentChartIndex >= chartConfigs.length) currentChartIndex = 0;
+    renderChart();
+};
+
+function renderChart() {
+    const chartEl = document.getElementById('sensorChart');
+    const titleEl = document.getElementById('chartTitle');
+    const dotsContainer = document.getElementById('chartDots');
+
+    if (!chartEl || !titleEl || !dotsContainer) return;
+
+    const config = chartConfigs[currentChartIndex];
+
+    titleEl.innerHTML = `<i class="ph ${config.icon} text-milaNeonGreen text-base"></i> Histórico: ${config.label}`;
+
+    Array.from(dotsContainer.children).forEach((dot, index) => {
+        dot.className = index === currentChartIndex ? `w-1.5 h-1.5 rounded-full ${config.color}` : 'w-1.5 h-1.5 rounded-full bg-milaBorder';
+    });
+
+    chartEl.style.opacity = '0';
+    setTimeout(() => {
+        chartEl.innerHTML = '';
+
+        if (sensorDataCache.length === 0) {
+            chartEl.innerHTML = '<div class="text-center w-full text-milaTextMuted text-[10px] pt-10">Sem dados recentes.</div>';
+            chartEl.style.opacity = '1';
+            return;
+        }
+
+        const maxVal = Math.max(...sensorDataCache.map(d => parseFloat(d[config.key]) || 0), 100);
+
+        sensorDataCache.forEach(dayData => {
+            const val = parseFloat(dayData[config.key]) || 0;
+            const heightPercent = Math.max((val / maxVal) * 100, 5); 
+
+            chartEl.innerHTML += `
+                <div class="flex-1 flex flex-col items-center justify-end h-full group relative">
+                    <div class="w-full ${config.color} rounded-t opacity-80 hover:opacity-100 transition-all duration-300 relative" style="height: ${heightPercent}%">
+                        <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] bg-milaBgCard text-white px-1.5 py-0.5 rounded border border-milaBorder opacity-0 group-hover:opacity-100 z-10 whitespace-nowrap shadow-md">
+                            ${val}${config.unit}
+                        </span>
+                    </div>
+                    <span class="text-[7px] text-milaTextMuted mt-1">${dayData.date}</span>
+                </div>
+            `;
+        });
+        chartEl.style.opacity = '1';
+    }, 150); 
+}
+
+// --- RELATÓRIO PDF ---
+window.gerarRelatorioPDF = function() {
+    if (sensorDataCache.length === 0) {
+        return showToast('⚠️ Sem dados suficientes para gerar o relatório.');
+    }
+
+    if (!window.jspdf) {
+        return showToast('⚠️ Erro: Biblioteca de PDF não carregada.');
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFillColor(11, 7, 23); 
+    doc.rect(0, 0, 210, 297, 'F');
+
+    doc.setTextColor(0, 255, 157); 
+    doc.setFontSize(22);
+    doc.text("Relatório Semanal MILA", 105, 20, null, null, "center");
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(12);
+    doc.text(`Aluno: ${currentUserData.user.name}`, 15, 35);
+    doc.text(`Data do Relatório: ${new Date().toLocaleDateString('pt-BR')}`, 15, 42);
+
+    const tableData = sensorDataCache.map(d => [
+        d.date,
+        d.media_postura ? d.media_postura + '%' : '--',
+        d.media_luminosidade ? d.media_luminosidade + '%' : '--',
+        d.media_estresse ? d.media_estresse + '%' : '--',
+        d.media_temperatura_c ? d.media_temperatura_c + '°C' : '--'
+    ]);
+
+    doc.autoTable({
+        startY: 55,
+        head: [['Data', 'Postura', 'Luz', 'Estresse', 'Temp']],
+        body: tableData,
+        theme: 'grid',
+        headStyles: { fillColor: [168, 85, 247], textColor: 255 }, 
+        styles: { fillColor: [22, 14, 46], textColor: 255, fontSize: 10 }, 
+        alternateRowStyles: { fillColor: [35, 24, 69] }
+    });
+
+    doc.setFontSize(10);
+    doc.setTextColor(154, 142, 184);
+    doc.text("Gerado automaticamente pelo aplicativo Mila.", 105, doc.internal.pageSize.height - 10, null, null, "center");
+
+    doc.save(`Relatorio_Mila_${new Date().getTime()}.pdf`);
+    showToast('✅ Relatório baixado!');
+};
+
+// --- CÂMERA ---
+window.startPostureCamera = async function() {
+    const video = document.getElementById('postureWebcam'); const placeholder = document.getElementById('camPlaceholder');
+    try { 
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true }); 
+        video.srcObject = stream; 
+        video.classList.remove('hidden'); 
+        if(placeholder) placeholder.classList.add('hidden'); 
+    } 
+    catch (err) { 
+        showToast('📷 Câmera indisponível ou permissão negada.'); 
+    }
+};
+
+// --- MICROFONE (AUTO-ENVIO ATIVADO) ---
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -462,110 +645,66 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 
     recognition.onstart = () => {
         isListening = true;
-        document.getElementById('voiceStatusText').innerText = "🎤 Escutando...";
-        document.getElementById('voiceStatusText').classList.add('text-amber-400');
-        document.getElementById('micPulseRing').classList.remove('hidden');
-        document.getElementById('soundWaveContainer').classList.remove('opacity-30');
+        const statusEl = document.getElementById('voiceStatusText');
+        if(statusEl) {
+            statusEl.innerText = "🎤 Escutando...";
+            statusEl.classList.add('text-amber-400');
+        }
+        const ringEl = document.getElementById('micPulseRing');
+        if(ringEl) ringEl.classList.remove('hidden');
+
+        const waveEl = document.getElementById('soundWaveContainer');
+        if(waveEl) waveEl.classList.remove('opacity-30');
     };
 
-    recognition.onresult = async (event) => {
+    recognition.onresult = (event) => {
         const text = event.results[0][0].transcript;
-        document.getElementById('voiceTranscript').innerText = `"${text}"`;
+        const transcriptEl = document.getElementById('voiceTranscript');
+        if(transcriptEl) transcriptEl.innerText = `"${text}"`;
 
+        showToast('✅ Áudio capturado! Abrindo chat...');
+
+        // Redireciona com o parâmetro &autoSend=true
         setTimeout(() => {
-            window.location.href = `chat.html?q=${encodeURIComponent(text)}`;
+            window.location.href = `chat.html?q=${encodeURIComponent(text)}&autoSend=true`;
         }, 1500);
+    };
+
+    recognition.onerror = (event) => {
+        console.error("Erro no microfone:", event.error);
+        showToast('❌ Erro no microfone. Permita o acesso nas configurações do navegador.');
+        isListening = false;
     };
 
     recognition.onend = () => {
         isListening = false;
-        document.getElementById('voiceStatusText').innerText = "Toque para falar com a Mila...";
-        document.getElementById('voiceStatusText').classList.remove('text-amber-400');
-        document.getElementById('micPulseRing').classList.add('hidden');
-        document.getElementById('soundWaveContainer').classList.add('opacity-30');
+        const statusEl = document.getElementById('voiceStatusText');
+        if(statusEl) {
+            statusEl.innerText = "Toque para falar com a Mila...";
+            statusEl.classList.remove('text-amber-400');
+        }
+        const ringEl = document.getElementById('micPulseRing');
+        if(ringEl) ringEl.classList.add('hidden');
+
+        const waveEl = document.getElementById('soundWaveContainer');
+        if(waveEl) waveEl.classList.add('opacity-30');
     };
 }
 
 window.toggleVoiceAssistant = () => {
     if (!recognition) return showToast('Seu navegador não suporta gravação de voz.');
-    if (isListening) recognition.stop();
-    else recognition.start();
-};
 
-window.goToChat = async function() {
-    const query = document.getElementById('searchQueryInput').value.trim();
-    if (!query) return showToast('Digite algo para pesquisar.');
-
-    const newSearch = { id: Date.now().toString(), query, date: new Date().toLocaleString() };
-    const history = [...(currentUserData.searchHistory || []), newSearch];
-    await update(ref(database, `usuarios/${currentUser.uid}`), { searchHistory: history });
-    currentUserData.searchHistory = history;
-    renderSearchHistory();
-
-    window.location.href = `chat.html?q=${encodeURIComponent(query)}`;
-};
-
-function renderSearchHistory() {
-    const list = document.getElementById('searchHistoryList');
-    if (!list) return;
-    list.innerHTML = '';
-    (currentUserData.searchHistory || []).reverse().slice(0, 5).forEach(item => {
-        list.innerHTML += `
-            <div onclick="window.location.href='chat.html?q=${encodeURIComponent(item.query)}'" class="p-3 bg-milaBgCard/60 border border-milaBorder/50 rounded-xl cursor-pointer hover:border-milaNeonGreen/50">
-                <h5 class="text-xs font-bold text-white">${item.query}</h5>
-                <p class="text-[9px] text-milaTextMuted mt-0.5">${item.date}</p>
-            </div>`;
-    });
-}
-
-// --- POMODORO PERSONALIZÁVEL ---
-let pomodoroInterval = null;
-let pomodoroMinutes = 25;
-let pomodoroSeconds = 25 * 60;
-let pomodoroRunning = false;
-
-window.changePomodoroTime = function(change) {
-    if (pomodoroRunning) return showToast('Pause o timer para alterar.');
-    pomodoroMinutes += change;
-    if (pomodoroMinutes < 5) pomodoroMinutes = 5;
-    if (pomodoroMinutes > 60) pomodoroMinutes = 60;
-    pomodoroSeconds = pomodoroMinutes * 60;
-    document.getElementById('pomodoroMode').innerText = `${pomodoroMinutes} min`;
-    document.getElementById('pomodoroDisplay').innerText = `${String(pomodoroMinutes).padStart(2, '0')}:00`;
-};
-
-window.togglePomodoro = () => {
-    const btn = document.getElementById('btnPomodoroStart');
-    if (!pomodoroRunning) {
-        pomodoroRunning = true;
-        btn.innerText = "Pausar";
-        btn.className = "py-2 px-6 bg-amber-400 text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow";
-        pomodoroInterval = setInterval(() => {
-            if (pomodoroSeconds > 0) {
-                pomodoroSeconds--;
-                document.getElementById('pomodoroDisplay').innerText = `${Math.floor(pomodoroSeconds/60).toString().padStart(2, '0')}:${(pomodoroSeconds%60).toString().padStart(2, '0')}`;
+    // Pede permissão do microfone antes de iniciar
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(() => {
+            if (isListening) {
+                recognition.stop();
             } else {
-                clearInterval(pomodoroInterval); pomodoroRunning = false; btn.innerText = "Iniciar";
-                btn.className = "py-2 px-6 bg-milaNeonGreen text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow";
-                showToast('⏰ Tempo de estudo concluído!');
+                recognition.start();
             }
-        }, 1000);
-    } else {
-        pomodoroRunning = false; clearInterval(pomodoroInterval);
-        btn.innerText = "Continuar"; btn.className = "py-2 px-6 bg-milaNeonGreen text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow";
-    }
-};
-
-window.resetPomodoro = () => {
-    clearInterval(pomodoroInterval); pomodoroRunning = false; pomodoroSeconds = pomodoroMinutes * 60;
-    document.getElementById('pomodoroDisplay').innerText = `${String(pomodoroMinutes).padStart(2, '0')}:00`;
-    const btn = document.getElementById('btnPomodoroStart');
-    btn.innerText = "Iniciar"; btn.className = "py-2 px-6 bg-milaNeonGreen text-milaBgDark font-bold text-xs rounded-xl shadow-neon-green btn-hover-glow";
-};
-
-// --- OUTRAS FUNÇÕES ---
-window.startPostureCamera = async function() {
-    const video = document.getElementById('postureWebcam'); const placeholder = document.getElementById('camPlaceholder');
-    try { const stream = await navigator.mediaDevices.getUserMedia({ video: true }); video.srcObject = stream; video.classList.remove('hidden'); placeholder.classList.add('hidden'); } 
-    catch (err) { showToast('📷 Câmera indisponível.'); }
+        })
+        .catch((err) => {
+            console.error(err);
+            showToast('🎤 Permissão de microfone negada. Verifique as configurações do navegador.');
+        });
 };

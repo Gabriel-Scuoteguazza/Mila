@@ -7,6 +7,10 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -460,15 +464,20 @@
             <i class="ph ph-caret-left text-xl cursor-pointer hover:text-milaNeonGreen btn-hover-glow" onclick="navigateTo('mila-dashboard')"></i>
             <h3 class="text-sm font-bold text-white">Ergonomia & Sensores</h3>
           </div>
-          <span class="text-[9px] bg-milaBgCardSubtle text-milaPurple px-2.5 py-1 rounded-full border border-milaPurple/30 font-mono">ESP32</span>
+          <div class="flex gap-2">
+            <button onclick="gerarRelatorioPDF()" class="bg-milaNeonGreen/10 text-milaNeonGreen border border-milaNeonGreen/30 px-3 py-1 rounded-lg text-[10px] font-bold btn-hover-glow flex items-center gap-1">
+              <i class="ph ph-file-pdf"></i> Relatório
+            </button>
+            <span class="text-[9px] bg-milaBgCardSubtle text-milaPurple px-2.5 py-1 rounded-full border border-milaPurple/30 font-mono">ESP32</span>
+          </div>
         </div>
 
+        <!-- Grid de Sensores -->
         <div class="grid grid-cols-2 gap-3">
+
           <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
             <div class="flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center">
-                <i class="ph ph-hand-pressing text-sm"></i>
-              </div>
+              <div class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center"><i class="ph ph-hand-pressing text-sm"></i></div>
               <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Força</span>
             </div>
             <p class="text-2xl font-bold text-white font-mono" id="sensorForca">--</p>
@@ -476,66 +485,96 @@
 
           <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
             <div class="flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                <i class="ph ph-person-arms-spread text-sm"></i>
-              </div>
+              <div class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><i class="ph ph-person-arms-spread text-sm"></i></div>
               <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Postura</span>
             </div>
-            <p class="text-2xl font-bold text-white font-mono" id="sensorPostura">--</p>
+            <div>
+              <p class="text-2xl font-bold text-white font-mono" id="sensorPostura">--%</p>
+              <p class="text-[9px] text-milaTextMuted" id="sensorPosturaLabel">Aguardando...</p>
+            </div>
           </div>
 
           <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
             <div class="flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-md bg-amber-500/20 text-amber-400 flex items-center justify-center">
-                <i class="ph ph-sun text-sm"></i>
-              </div>
+              <div class="w-6 h-6 rounded-md bg-amber-500/20 text-amber-400 flex items-center justify-center"><i class="ph ph-sun text-sm"></i></div>
               <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Luminosidade</span>
             </div>
-            <p class="text-2xl font-bold text-white font-mono" id="sensorLuz">--</p>
+            <div>
+              <p class="text-2xl font-bold text-white font-mono" id="sensorLuz">--%</p>
+              <p class="text-[9px] text-milaTextMuted" id="sensorLuzLabel">Aguardando...</p>
+            </div>
           </div>
 
           <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between">
             <div class="flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-md bg-rose-500/20 text-rose-400 flex items-center justify-center">
-                <i class="ph ph-thermometer-hot text-sm"></i>
-              </div>
-              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Temperatura</span>
+              <div class="w-6 h-6 rounded-md bg-rose-500/20 text-rose-400 flex items-center justify-center"><i class="ph ph-brain text-sm"></i></div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Estresse</span>
             </div>
-            <p class="text-2xl font-bold text-white font-mono" id="sensorTemp">-- °C</p>
+            <div>
+              <p class="text-2xl font-bold text-white font-mono" id="sensorEstresse">--%</p>
+              <p class="text-[9px] text-milaTextMuted" id="sensorEstresseLabel">Aguardando...</p>
+            </div>
           </div>
 
           <div class="bg-milaBgCard/60 p-3 rounded-2xl border border-milaBorder shadow-glass flex flex-col justify-between col-span-2">
             <div class="flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-md bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
-                <i class="ph ph-drop text-sm"></i>
-              </div>
-              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Umidade</span>
+              <div class="w-6 h-6 rounded-md bg-orange-500/20 text-orange-400 flex items-center justify-center"><i class="ph ph-thermometer-hot text-sm"></i></div>
+              <span class="text-[9px] text-milaTextMuted uppercase tracking-wider font-bold">Temperatura</span>
             </div>
-            <p class="text-2xl font-bold text-white font-mono" id="sensorUmid">-- %</p>
+            <p class="text-2xl font-bold text-white font-mono" id="sensorTemp">-- °C</p>
           </div>
         </div>
 
+        <!-- Status Geral -->
         <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-2xl p-5 flex flex-col items-center justify-center h-32 shadow-glass mt-2">
           <span class="text-[10px] text-milaTextMuted uppercase tracking-widest mb-3 flex items-center gap-2"><i class="ph ph-wifi-high"></i> Conexão com a Mesa</span>
-          <div id="sensorStatus" class="text-emerald-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-milaNeonGreen/30 shadow-neon-green animate-pulse">Aguardando conexão...</div>
+          <div id="sensorStatus" class="text-emerald-400 font-bold font-mono text-sm bg-milaBgDark/80 px-5 py-2.5 rounded-xl border border-milaNeonGreen/30 shadow-neon-green">Aguardando conexão...</div>
         </div>
 
-        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-2xl p-4 shadow-glass">
-          <h4 class="text-xs font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-chart-line-up text-milaNeonGreen text-base"></i> Histórico de Força (7 dias)</h4>
-          <div id="sensorChart" class="h-36 flex items-end justify-between gap-2 px-1 pt-2 border-b border-milaBorder/40 pb-1">
-            <div class="text-center w-full text-milaTextMuted text-[10px] pt-10">Carregando dados...</div>
+        <!-- Gráfico Carrossel -->
+        <div class="bg-milaBgCard/60 backdrop-blur-xl border border-milaBorder/50 rounded-2xl p-4 shadow-glass relative overflow-hidden">
+          <div class="flex justify-between items-center mb-4">
+            <h4 id="chartTitle" class="text-xs font-bold text-white flex items-center gap-2 transition-all">
+              <i class="ph ph-chart-line-up text-milaNeonGreen text-base"></i> Histórico
+            </h4>
+            <div class="flex gap-2">
+              <button onclick="changeChart(-1)" class="w-7 h-7 rounded-full bg-milaBgDark border border-milaBorder flex items-center justify-center text-slate-300 hover:text-milaNeonGreen hover:border-milaNeonGreen/50 transition-colors"><i class="ph ph-caret-left"></i></button>
+              <button onclick="changeChart(1)" class="w-7 h-7 rounded-full bg-milaBgDark border border-milaBorder flex items-center justify-center text-slate-300 hover:text-milaNeonGreen hover:border-milaNeonGreen/50 transition-colors"><i class="ph ph-caret-right"></i></button>
+            </div>
+          </div>
+          <div id="sensorChart" class="h-36 flex items-end justify-between gap-2 px-1 pt-2 border-b border-milaBorder/40 pb-1 transition-opacity duration-300"></div>
+          <div class="flex justify-center gap-1.5 mt-3" id="chartDots">
+            <span class="w-1.5 h-1.5 rounded-full bg-milaNeonGreen"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-milaBorder"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-milaBorder"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-milaBorder"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-milaBorder"></span>
           </div>
         </div>
 
-        <!-- CÂMERA DA MILA -->
-        <div class="relative w-full h-48 bg-black/50 rounded-2xl overflow-hidden border border-milaBorder flex items-center justify-center shadow-glass mt-2">
-          <video id="postureWebcam" class="w-full h-full object-cover hidden" autoplay playsinline muted></video>
-          <div id="camPlaceholder" class="flex flex-col items-center justify-center p-4 text-center">
-            <i class="ph ph-camera text-3xl text-milaNeonGreen mb-2 animate-pulse"></i>
-            <p class="text-[11px] text-slate-200 font-medium">Visão da Mila</p>
-            <button onclick="startPostureCamera()" class="mt-3 py-1.5 px-4 bg-milaNeonGreen/20 border border-milaNeonGreen/50 text-milaNeonGreen text-[10px] font-bold rounded-lg btn-hover-glow">Ativar Câmera</button>
-          </div>
+        <!-- Visão da Mila -->
+        <div class="bg-milaBgCard/60 border border-milaBorder/50 rounded-2xl p-4 shadow-glass flex flex-col gap-3 mt-2">
+            <h4 class="text-xs font-bold text-white flex items-center gap-2"><i class="ph ph-eye text-milaNeonGreen"></i> Visão da Mila</h4>
+
+            <div class="relative w-full h-48 bg-black/50 rounded-xl overflow-hidden border border-milaBorder flex items-center justify-center">
+              <video id="postureWebcam" class="w-full h-full object-cover hidden" autoplay playsinline muted></video>
+              <div id="camPlaceholder" class="flex flex-col items-center justify-center p-4 text-center">
+                <i class="ph ph-camera text-3xl text-milaNeonGreen mb-2 animate-pulse"></i>
+                <p class="text-[11px] text-slate-200 font-medium">Câmera Desligada</p>
+                <button onclick="startPostureCamera()" class="mt-3 py-1.5 px-4 bg-milaNeonGreen/20 border border-milaNeonGreen/50 text-milaNeonGreen text-[10px] font-bold rounded-lg btn-hover-glow">Ativar Câmera</button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between bg-milaBgDark/60 p-3 rounded-xl border border-milaBorder/50">
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-user-focus text-milaPurple text-lg"></i>
+                    <span class="text-[10px] text-milaTextMuted font-bold uppercase">Status da Câmera</span>
+                </div>
+                <span id="statusCameraLabel" class="text-xs font-bold text-white px-3 py-1 bg-milaPurple/20 rounded-lg border border-milaPurple/30">Desconectado</span>
+            </div>
         </div>
+      </section>
+
       </section>
 
     </div>
@@ -574,6 +613,5 @@
 
   <!-- 2. Carrega os scripts do app -->
   <script type="module" src="ia-gemini.js"></script>
-  <script type="module" src="chat.js"></script>
 </body>
 </html>
